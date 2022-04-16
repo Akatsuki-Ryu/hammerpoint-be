@@ -11,12 +11,16 @@ const pool = new Pool({
     }
 });
 
+console.log("service started ");
 
 express()
     .use(express.static(path.join(__dirname, 'public')))
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
-    .get('/', (req, res) => res.render('pages/index'))
+    .get('/', (req, res) => {
+        res.render('pages/index')
+        // console.log("loaded main page");
+    })
     .get('/cool', (req, res) => res.send(cool()))
     .get('/db', async (req, res) => {
         try {
