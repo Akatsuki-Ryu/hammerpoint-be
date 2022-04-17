@@ -3,7 +3,6 @@ const express = require('express')
 const path = require('path')
 const cool = require('cool-ascii-faces');
 const PORT = process.env.PORT || 3000
-//const fs = require('./components/apicall')
 const requestloop = require('./components/requestloop')
 
 //database related
@@ -43,8 +42,12 @@ express()
     })
     .get('/apicallbridge', (req, res) => {
 
-
-        res.send("switch to " + fs);
+        apicall.readjson();
+        let data = undefined;
+        data = apicall.getdatabase();
+        let jsoncontent = JSON.stringify(data);
+        // res.send("database ==============" + apicall.getdatabase());
+        res.send(jsoncontent);
     })
     .get('/db', async (req, res) => {
         try {

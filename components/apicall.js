@@ -1,4 +1,5 @@
 const fs = require('fs');
+let databases = undefined;
 
 
 module.exports = {
@@ -21,15 +22,19 @@ module.exports = {
             } else {
 
                 // parse JSON string to JSON object
-                const databases = JSON.parse(data);
+                databases = JSON.parse(data);
 
                 // print all databases
                 // databases.forEach(db => {
                 //     console.log(`${db.name}: ${db.type}`);
                 // });
-                console.log(databases);
+                // console.log(databases);
+                // return databases;w
             }
 
         });
+    },
+    getdatabase: function () {
+        return databases;
     }
 };
