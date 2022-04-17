@@ -3,6 +3,8 @@ const express = require('express')
 const path = require('path')
 const cool = require('cool-ascii-faces');
 const PORT = process.env.PORT || 3000
+//const fs = require('./components/apicall')
+const requestloop = require('./components/requestloop')
 
 //database related
 const {Pool} = require('pg');
@@ -15,28 +17,12 @@ const pool = new Pool({
 
 
 //init parameters
-let para = -1;
+// let para = -1;
 
 
-const requestloop = setInterval(function () {
-    if (para === "game") {
-        apicall.callgame();
-    } else if (para === "bridge") {
-        apicall.callbridge();
-    }
-}, 1000);
-
-//start the loop
-console.log(requestloop);
+// console.log(requestloop);
 
 
-function paraswitch() {
-    if (para === "game") {
-        para = "bridge";
-    } else {
-        para = "game";
-    }
-}
 
 
 express()
@@ -52,8 +38,13 @@ express()
     })
     .get('/switch', (req, res) => {
 
-        paraswitch();
-        res.send("switch to " + para);
+        requestloop.paraswitchexp();
+        res.send("switch to " + requestloop.getrequesttypeexp());
+    })
+    .get('/apicallbridge', (req, res) => {
+
+
+        res.send("switch to " + fs);
     })
     .get('/db', async (req, res) => {
         try {
