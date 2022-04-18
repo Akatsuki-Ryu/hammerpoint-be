@@ -2,14 +2,13 @@ const apicall = require('./components/apicall')
 const express = require('express')
 const path = require('path')
 const cool = require('cool-ascii-faces');
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3002
 const requestloop = require('./components/requestloop')
 
 //database related
 const {Pool} = require('pg');
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
+    connectionString: process.env.DATABASE_URL, ssl: {
         rejectUnauthorized: false
     }
 });
@@ -20,8 +19,6 @@ const pool = new Pool({
 
 
 // console.log(requestloop);
-
-
 
 
 express()
@@ -46,8 +43,10 @@ express()
         let data = undefined;
         data = apicall.getdatabase();
         let jsoncontent = JSON.stringify(data);
-        // res.send("database ==============" + apicall.getdatabase());
         res.send(jsoncontent);
+    })
+    .get('/apitest', (req, res) => {
+        res.json({message: "Hello from hammerpoint server!"});
     })
     .get('/db', async (req, res) => {
         try {

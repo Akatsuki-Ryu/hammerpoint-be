@@ -18,7 +18,7 @@ module.exports = {
         fs.readFile('./public/datasetgame.json', 'utf8', (err, data) => {
 
             if (err) {
-                console.log(`Error reading file from disk: ${err}`);
+                console.log(`Error reading file from file: ${err}`);
             } else {
 
                 // parse JSON string to JSON object

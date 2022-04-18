@@ -25,7 +25,7 @@ function paraswitch() {
     }
     // module.exports.requesttypeexp = requesttype;
 }
-
+//io to other modules
 function getrequesttype() {
     return requesttype;
 }
