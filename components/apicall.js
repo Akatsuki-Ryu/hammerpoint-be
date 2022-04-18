@@ -1,12 +1,25 @@
 const fs = require('fs');
 let databases = undefined;
+let bridgedata = undefined;
 
+const request = require('request');
+const options = {
+    'method': 'GET',
+    'url': 'https://api.mozambiquehe.re/bridge?version=5&platform=PC&player=akabox218&auth=7rggUEagkVtDVm3spk8Z',
+    'headers': {}
+};
 
 module.exports = {
     callbridge: function () {
         // func1 impl
 
-        console.log("call bridge");
+        request(options, function (error, response) {
+            if (error) throw new Error(error);
+            // console.log(response.body);
+            bridgedata = JSON.parse(response.body);
+        });
+
+        console.log("call bridge=========================");
         // console.log(fs);
     },
     callgame: function () {
@@ -36,5 +49,8 @@ module.exports = {
     },
     getdatabase: function () {
         return databases;
+    },
+    getbridgedata: function () {
+        return bridgedata;
     }
 };

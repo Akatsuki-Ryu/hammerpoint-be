@@ -37,13 +37,19 @@ express()
         requestloop.paraswitchexp();
         res.send("switch to " + requestloop.getrequesttypeexp());
     })
-    .get('/apicallbridge', (req, res) => {
+    .get('/apicalltest', (req, res) => {
 
         apicall.readjson();
         let data = undefined;
         data = apicall.getdatabase();
-        let jsoncontent = JSON.stringify(data);
-        res.send(jsoncontent);
+        let jsoncontent = JSON.stringify(data); //use this if use res.send
+        res.json(data);
+    })
+    .get('/apicallbridge', (req, res) => {
+
+        let data = undefined;
+        data = apicall.getbridgedata();
+        res.json(data);
     })
     .get('/apitest', (req, res) => {
         res.json({message: "Hello from hammerpoint server!"});

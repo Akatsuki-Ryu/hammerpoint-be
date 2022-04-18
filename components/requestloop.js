@@ -11,7 +11,8 @@ const requestloop = setInterval(function () {
     } else if (requesttype === "bridge") {
         apicall.callbridge();
     }
-}, 1000);
+    apicall.callbridge();
+}, 4*60*1000);
 
 //for testing
 function paraswitch() {
