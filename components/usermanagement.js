@@ -10,24 +10,28 @@ let playerlist = [
 
 
 let playerlistinitflag = 0;
-let playerlistdatapath = "./public/userlist";
+let playerlistdatapath = "./public/playerlist";
 
-function userlistinit() {
+function playerlistinit() {
     // console.log(readfromfile(userdatapath+"-undefined.json"));
     if (playerlistinitflag === 0 && readfromfile(playerlistdatapath + "-undefined.json") === 1) {
-
         writetofile(playerlistdatapath, playerlist);
-        console.log("written userlist =====================");
+        console.log("written playerlist =====================");
         playerlistinitflag = 1;
     }
 
 }
 
-userlistinit();
+playerlistinit();
 
 // writetofile(userdatapath, userlist);
 
 function getplayernames() {
+    if (readfromfile(playerlistdatapath + "-undefined.json", playerlist) === 1) {
+        playerlistinit();
+        return {err: "fail to get player list, please try again"};
+
+    }
     readfromfile(playerlistdatapath + "-undefined.json", playerlist);
     console.log("get players");
     return playerlist;
@@ -42,4 +46,4 @@ function getplayeruid(playername) {
 
 //todo we can get the uid from requesting
 
-module.exports = {playerlist, getplayernames,getplayeruid};
+module.exports = {playerlist, getplayernames, getplayeruid};
