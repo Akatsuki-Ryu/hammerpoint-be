@@ -22,7 +22,6 @@ const pool = new Pool({
 // console.log(requestloop);
 
 
-
 express()
     .use(express.static(path.join(__dirname, 'public')))
     .set('views', path.join(__dirname, 'views'))
@@ -47,10 +46,10 @@ express()
         let jsoncontent = JSON.stringify(data); //use this if use res.send
         res.json(data);
     })
-    .get('/apicallbridge/:playernamereq', async (req, res) =>  {
+    .get('/apicallbridge/:playernamereq', async (req, res) => {
         // apicall.setplayername(req.params.playernamereq);
         let data = undefined;
-        data =  await apicall.getbridgedata(req.params.playernamereq);
+        data = await apicall.getbridgedata(req.params.playernamereq);
         res.send(data);
     })
     .get('/apicallgame', (req, res) => {
@@ -63,17 +62,17 @@ express()
         // res.json({message: "Hello from hammerpoint server!"});
         res.send({message: "Hello from hammerpoint server!"});
     })
-    .get('/api/:namereq', function(req,res) {
+    .get('/api/:namereq', function (req, res) {
         // console.log(req.params.nameee);
         apicall.setplayername(req.params.namereq);
-        res.send({"param" : req.params.namereq});
+        res.send({"param": req.params.namereq});
     })
-    .get('/getplayers', function(req,res) {
+    .get('/getplayers', function (req, res) {
         // console.log(req.params.nameee);
         // apicall.getplayername();
         res.send(getplayernames());
     })
-    .get('/getuidlocal/:playernamereq', function(req,res) {
+    .get('/getuidlocal/:playernamereq', function (req, res) {
         // console.log(req.params.nameee);
         // apicall.getplayername();
         res.send(getplayeruid(req.params.playernamereq));
