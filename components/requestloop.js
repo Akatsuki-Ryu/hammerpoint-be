@@ -36,9 +36,9 @@ const requestloop = setInterval(function () {
 
 
     if (requesttype === "game") {
-        apicall.callgame();
+        // apicall.callgame();
     } else if (requesttype === "bridge") {
-        apicall.callbridge(usermanagementobj.userlist[userindex].playername);
+        // apicall.callbridge(usermanagementobj.userlist[userindex].playername);
     }
 
 }, 1 * 6 * 1000); //6 sec as one unit
