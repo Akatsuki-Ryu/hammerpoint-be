@@ -1,16 +1,47 @@
 let requesttype = -1;
 const apicall = require("./apicall");
-// let requesttype = -1;
-// exports.requesttypeexp = requesttype;
+const usermanagementobj = require("./usermanagement")
+let userindex = 0;
+let looptimeoutcontrol = 0;
+let looprequestflag = 0;
 
 const requestloop = setInterval(function () {
     console.log("reqeust loop is running " + requesttype);
+    // for (let i in usermanagementobj.userlist) {
+
+    //set timeout logic
+    looptimeoutcontrol = looptimeoutcontrol + 1;
+    if (looptimeoutcontrol>10) {
+        looprequestflag = 1;
+        // console.log("make request for bridge");
+        // looptimeoutcontrol = 0;
+    }
+    if (looprequestflag === 1) {
+
+//run the request for player
+        console.log("test request for " + usermanagementobj.userlist[userindex].playername);
+        apicall.callbridge(usermanagementobj.userlist[userindex].playername);
+
+        userindex = userindex + 1;
+        if (userindex===usermanagementobj.userlist.length) {
+            looprequestflag = 0;
+            looptimeoutcontrol = 0;
+            userindex = 0;
+        }
+    }
+
+
+//go around players
+//     console.log("test request for " + usermanagementobj.userlist[userindex].playername);
+
+
     if (requesttype === "game") {
         apicall.callgame();
     } else if (requesttype === "bridge") {
-        apicall.callbridge();
+        apicall.callbridge(usermanagementobj.userlist[userindex].playername);
     }
-}, 1 * 6 * 1000);
+
+}, 1 * 1 * 1000);
 
 //for testing
 function paraswitch() {
