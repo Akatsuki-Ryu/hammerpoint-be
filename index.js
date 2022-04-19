@@ -21,6 +21,7 @@ const pool = new Pool({
 // console.log(requestloop);
 
 
+
 express()
     .use(express.static(path.join(__dirname, 'public')))
     .set('views', path.join(__dirname, 'views'))
@@ -58,7 +59,12 @@ express()
         res.json(data);
     })
     .get('/apitest', (req, res) => {
-        res.json({message: "Hello from hammerpoint server!"});
+        // res.json({message: "Hello from hammerpoint server!"});
+        res.send({message: "Hello from hammerpoint server!"});
+    })
+    .get('/api/:nameee', function(req,res) {
+        console.log(req.params.nameee);
+        res.send({"param" : req.params.nameee});
     })
     .get('/db', async (req, res) => {
         try {
