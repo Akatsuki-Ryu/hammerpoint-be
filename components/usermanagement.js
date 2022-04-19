@@ -1,6 +1,6 @@
 const {writetofile, readfromfile} = require("./datamgr");
 
-let userlist = [
+let playerlist = [
     {playername: "akabox218", uid: "1007820601979"},
     {playername: "terpko", uid: "2297370779"},
     {playername: "hakipi", uid: "2545398846"},
@@ -9,16 +9,16 @@ let userlist = [
 ]
 
 
-let userlistinitflag = 0;
-let userdatapath = "./public/userlist";
+let playerlistinitflag = 0;
+let playerlistdatapath = "./public/userlist";
 
 function userlistinit() {
     // console.log(readfromfile(userdatapath+"-undefined.json"));
-    if (userlistinitflag === 0 && readfromfile(userdatapath + "-undefined.json") === 1) {
+    if (playerlistinitflag === 0 && readfromfile(playerlistdatapath + "-undefined.json") === 1) {
 
-        writetofile(userdatapath, userlist);
+        writetofile(playerlistdatapath, playerlist);
         console.log("written userlist =====================");
-        userlistinitflag = 1;
+        playerlistinitflag = 1;
     }
 
 }
@@ -28,18 +28,18 @@ userlistinit();
 // writetofile(userdatapath, userlist);
 
 function getplayernames() {
-    readfromfile(userdatapath + "-undefined.json", userlist);
+    readfromfile(playerlistdatapath + "-undefined.json", playerlist);
     console.log("get players");
-    return userlist;
+    return playerlist;
 
 }
 
 function getplayeruid(playername) {
-    let rta = userlist.filter(it => it.playername === playername);
+    let rta = playerlist.filter(it => it.playername === playername);
     return rta[0].uid;
 
 }
 
 //todo we can get the uid from requesting
 
-module.exports = {userlist, getplayernames,getplayeruid};
+module.exports = {playerlist, getplayernames,getplayeruid};
