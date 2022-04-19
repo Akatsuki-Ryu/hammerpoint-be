@@ -6,7 +6,7 @@ let looptimeoutcontrol = 0;
 let looprequestflag = 0;
 
 const requestloop = setInterval(function () {
-    console.log("reqeust loop is running " + requesttype);
+    // console.log("reqeust loop is running " + requesttype);
     // for (let i in usermanagementobj.userlist) {
 
     //set timeout logic
