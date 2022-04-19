@@ -7,7 +7,8 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodem index.js",
+    "start-dev": "nodemon index.js",
     "test": "node test.js"
   },
   "dependencies": {
