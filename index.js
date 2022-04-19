@@ -63,7 +63,8 @@ express()
         res.send({message: "Hello from hammerpoint server!"});
     })
     .get('/api/:nameee', function(req,res) {
-        console.log(req.params.nameee);
+        // console.log(req.params.nameee);
+        apicall.setplayername(req.params.nameee);
         res.send({"param" : req.params.nameee});
     })
     .get('/db', async (req, res) => {

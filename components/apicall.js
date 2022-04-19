@@ -5,23 +5,23 @@ let gamedata = undefined;
 const localbridgepath = "./public/bridgedata.json";
 const localgamepath = "./public/gamedata.json";
 
-const request = require('request');
-const optionsbridge = {
-    'method': 'GET',
-    'url': 'https://api.mozambiquehe.re/bridge?version=5&platform=PC&player=akabox218&auth=7rggUEagkVtDVm3spk8Z',
-    'headers': {}
-};
+let playername = "";
 
-var optionsgame = {
-    'method': 'GET',
-    'url': 'https://api.mozambiquehe.re/games?version=5&platform=PC&auth=7rggUEagkVtDVm3spk8Z&uid=1007820601979',
-    'headers': {}
-};
+const request = require('request');
+
+
+
 
 module.exports = {
     callbridge: function () {
-        // func1 impl
 
+        // func1 impl
+        let optionsbridge = {
+            'method': 'GET',
+            'url': 'https://api.mozambiquehe.re/bridge?version=5&platform=PC&player='+playername+'&auth=7rggUEagkVtDVm3spk8Z',
+            'headers': {}
+        };
+        console.log(optionsbridge);
         request(optionsbridge, function (error, response) {
             if (error) throw new Error(error);
             // console.log(response.body);
@@ -46,6 +46,12 @@ module.exports = {
     },
     callgame: function () {
         // func2 impl
+
+        let optionsgame = {
+            'method': 'GET',
+            'url': 'https://api.mozambiquehe.re/games?version=5&platform=PC&auth=7rggUEagkVtDVm3spk8Z&uid=1007820601979',
+            'headers': {}
+        };
 
         request(optionsgame, function (error, response) {
             if (error) throw new Error(error);
@@ -110,5 +116,10 @@ module.exports = {
             return gamedata;
         }
 
+    },
+    setplayername:function (playernameval) {
+        playername = playernameval;
+        console.log("playername is " + playername);
     }
+
 };
