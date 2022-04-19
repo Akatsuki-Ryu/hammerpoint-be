@@ -11,7 +11,7 @@ const requestloop = setInterval(function () {
 
     //set timeout logic
     looptimeoutcontrol = looptimeoutcontrol + 1;
-    if (looptimeoutcontrol>10) {
+    if (looptimeoutcontrol > 40) { //40 is the breaking time in between before refreshing the playerlist bridge
         looprequestflag = 1;
         // console.log("make request for bridge");
         // looptimeoutcontrol = 0;
@@ -23,7 +23,7 @@ const requestloop = setInterval(function () {
         apicall.callbridge(usermanagementobj.userlist[userindex].playername);
 
         userindex = userindex + 1;
-        if (userindex===usermanagementobj.userlist.length) {
+        if (userindex === usermanagementobj.userlist.length) {
             looprequestflag = 0;
             looptimeoutcontrol = 0;
             userindex = 0;
@@ -41,7 +41,7 @@ const requestloop = setInterval(function () {
         apicall.callbridge(usermanagementobj.userlist[userindex].playername);
     }
 
-}, 1 * 1 * 1000);
+}, 1 * 6 * 1000); //6 sec as one unit
 
 //for testing
 function paraswitch() {
