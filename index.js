@@ -7,7 +7,7 @@ const requestloop = require('./components/requestloop')
 
 //database related
 const {Pool} = require('pg');
-const {getplayernames} = require("./components/usermanagement");
+const {getplayernames, getplayeruid} = require("./components/usermanagement");
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL, ssl: {
         rejectUnauthorized: false
@@ -72,6 +72,11 @@ express()
         // console.log(req.params.nameee);
         // apicall.getplayername();
         res.send(getplayernames());
+    })
+    .get('/getuidlocal/:playernamereq', function(req,res) {
+        // console.log(req.params.nameee);
+        // apicall.getplayername();
+        res.send(getplayeruid(req.params.playernamereq));
     })
     .get('/db', async (req, res) => {
         try {
