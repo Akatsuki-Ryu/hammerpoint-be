@@ -12,5 +12,19 @@ module.exports = {
 
         });
 
+    },
+    readfromfile: function (localpath, data) {
+        try {
+            let contents = fs.readFileSync(localpath, 'utf8');
+
+            data = contents;
+            return 0;
+
+        } catch (err) {
+            // console.error("file doesnt exist========================================== ");
+            console.error(err);
+            return 1;
+
+        }
     }
 }
