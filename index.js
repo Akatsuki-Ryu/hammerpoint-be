@@ -8,6 +8,7 @@ const requestloop = require('./components/requestloop')
 //database related
 const {Pool} = require('pg');
 const {getplayernames, getplayeruid} = require("./components/usermanagement");
+const wakeUpDyno = require("./components/keepawake");
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL, ssl: {
         rejectUnauthorized: false
@@ -89,4 +90,7 @@ express()
             res.send("Error " + err);
         }
     })
-    .listen(PORT, () => console.log(`Listening on ${PORT}`))
+    .listen(PORT, () => {
+        console.log(`Listening on ${PORT}`)
+        wakeUpDyno(process.env.DYNO_URL);
+    })
