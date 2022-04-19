@@ -11,6 +11,7 @@ let playername = "";
 
 const request = require('request');
 const {readfromfile} = require("./datamgr");
+const {getplayeruid} = require("./usermanagement");
 
 
 module.exports = {
@@ -38,33 +39,27 @@ module.exports = {
             // console.log("call to write file");
         }
 
-    }, callgame: function () {
+    }, callgame: function (playername) {
         // func2 impl
+        console.log("call game=========================")
+        playeruid = getplayeruid(playername);
 
         let optionsgame = {
             'method': 'GET',
-            'url': 'https://api.mozambiquehe.re/games?version=5&platform=PC&auth=7rggUEagkVtDVm3spk8Z&uid=1007820601979',
+            'url': 'https://api.mozambiquehe.re/games?version=5&platform=PC&auth=7rggUEagkVtDVm3spk8Z&uid=' + playeruid,
             'headers': {}
         };
-
+        console.log(optionsgame);
         request(optionsgame, function (error, response) {
             if (error) throw new Error(error);
             // console.log(response.body);
             gamedata = JSON.parse(response.body);
+            writetofileobj.writetofile(localgamepath, gamedata, playername)
         });
 
-        console.log("call game=====");
+
         if (gamedata) {
-            const data = JSON.stringify(gamedata);
-            fs.writeFile(localgamepath, data, 'utf8', (err) => {
 
-                if (err) {
-                    console.log(`Error writing file: ${err}`);
-                } else {
-                    console.log(`gamedata file is written successfully!`);
-                }
-
-            });
         }
     }, readjson: function (localpath) {
         let statuscode = -1;
@@ -90,9 +85,8 @@ module.exports = {
             console.log("=====bridge file not exist for " + playernameval);
             return {'err': 'file not found'};
         } else {
-            console.log("load bridgedata for" + playernameval);
+            console.log("send bridgedata for" + playernameval);
             databases = readfromfile(localbridgepath + "-" + playernameval + ".json", databases);
-            console.log(databases);
 
 
             return databases;

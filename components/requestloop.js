@@ -20,9 +20,13 @@ const requestloop = setInterval(function () {
 
 //run the request for player
         console.log("test request for " + usermanagementobj.userlist[userindex].playername);
-        apicall.callbridge(usermanagementobj.userlist[userindex].playername);
+        if (looptimeoutcontrol % 2) {
+            apicall.callbridge(usermanagementobj.userlist[userindex].playername);
+        } else {
+            apicall.callgame(usermanagementobj.userlist[userindex].playername);
+            userindex = userindex + 1;
+        }
 
-        userindex = userindex + 1;
         if (userindex === usermanagementobj.userlist.length) {
             looprequestflag = 0;
             looptimeoutcontrol = 0;
