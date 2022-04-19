@@ -51,6 +51,12 @@ express()
         data = apicall.getbridgedata();
         res.json(data);
     })
+    .get('/apicallgame', (req, res) => {
+
+        let data = undefined;
+        data = apicall.getgamedata();
+        res.json(data);
+    })
     .get('/apitest', (req, res) => {
         res.json({message: "Hello from hammerpoint server!"});
     })
