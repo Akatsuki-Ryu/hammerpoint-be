@@ -46,11 +46,11 @@ express()
         let jsoncontent = JSON.stringify(data); //use this if use res.send
         res.json(data);
     })
-    .get('/apicallbridge', (req, res) => {
-
+    .get('/apicallbridge/:playernamereq', async (req, res) =>  {
+        // apicall.setplayername(req.params.playernamereq);
         let data = undefined;
-        data = apicall.getbridgedata();
-        res.json(data);
+        data =  await apicall.getbridgedata(req.params.playernamereq);
+        res.send(data);
     })
     .get('/apicallgame', (req, res) => {
 
@@ -62,10 +62,10 @@ express()
         // res.json({message: "Hello from hammerpoint server!"});
         res.send({message: "Hello from hammerpoint server!"});
     })
-    .get('/api/:nameee', function(req,res) {
+    .get('/api/:namereq', function(req,res) {
         // console.log(req.params.nameee);
-        apicall.setplayername(req.params.nameee);
-        res.send({"param" : req.params.nameee});
+        apicall.setplayername(req.params.namereq);
+        res.send({"param" : req.params.namereq});
     })
     .get('/db', async (req, res) => {
         try {

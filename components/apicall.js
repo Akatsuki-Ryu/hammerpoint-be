@@ -2,14 +2,12 @@ const fs = require('fs');
 let databases = undefined;
 let bridgedata = undefined;
 let gamedata = undefined;
-const localbridgepath = "./public/bridgedata.json";
+const localbridgepath = "./public/bridgedata";
 const localgamepath = "./public/gamedata.json";
 
 let playername = "";
 
 const request = require('request');
-
-
 
 
 module.exports = {
@@ -18,7 +16,7 @@ module.exports = {
         // func1 impl
         let optionsbridge = {
             'method': 'GET',
-            'url': 'https://api.mozambiquehe.re/bridge?version=5&platform=PC&player='+playername+'&auth=7rggUEagkVtDVm3spk8Z',
+            'url': 'https://api.mozambiquehe.re/bridge?version=5&platform=PC&player=' + playername + '&auth=7rggUEagkVtDVm3spk8Z',
             'headers': {}
         };
         console.log(optionsbridge);
@@ -32,7 +30,7 @@ module.exports = {
         // console.log(fs);
         if (bridgedata) {
             const data = JSON.stringify(bridgedata);
-            fs.writeFile(localbridgepath, data, 'utf8', (err) => {
+            fs.writeFile(localbridgepath + "-" + playername + ".json", data, 'utf8', (err) => {
 
                 if (err) {
                     console.log(`Error writing file: ${err}`);
@@ -73,38 +71,40 @@ module.exports = {
             });
         }
     },
-    readjson: function (localpath) {
+    readjson:  function (localpath) {
+        let statuscode = -1;
         //file handling
-        fs.readFile(localpath, 'utf8', (err, data) => {
 
-            if (err) {
-                console.log(`Error reading file from file: ${err}`);
-            } else {
 
-                // parse JSON string to JSON object
-                databases = JSON.parse(data);
+        try {
+            let contents = fs.readFileSync(localpath, 'utf8');
 
-                // print all databases
-                // databases.forEach(db => {
-                //     console.log(`${db.name}: ${db.type}`);
-                // });
-                // console.log(databases);
-                // return databases;w
-            }
+            databases = contents;
 
-        });
+        } catch (err) {
+            // console.error("file doesnt exist========================================== ");
+            return 1;
+            // console.error(err);
+        }
+
     },
     getdatabase: function () {
         return databases;
     },
-    getbridgedata: function () {
-        if (!bridgedata) {
-            console.log("calling local bridge data");
-            this.readjson(localbridgepath);
+    getbridgedata:  function (playernameval) {//todo if the user doesnt exist
+//load local data first
+        if (this.readjson(localbridgepath + "-" + playernameval + ".json") === 1) {
+            console.log("=====bridge file not exist for "+playernameval);
+            return {'err':'file not found'};
+        }else{
+            console.log("load bridgedata for" + playernameval);
+            this.readjson(localbridgepath + "-" + playernameval + ".json");
             return databases;
-        } else {
-            return bridgedata;
+
         }
+
+
+
 
     },
     getgamedata: function () {
@@ -117,7 +117,7 @@ module.exports = {
         }
 
     },
-    setplayername:function (playernameval) {
+    setplayername: function (playernameval) {
         playername = playernameval;
         console.log("playername is " + playername);
     }
