@@ -1,4 +1,5 @@
 const {writetofile, readfromfile} = require("./datamgr");
+
 let userlist = [
     {playername: "akabox218", uid: "1007820601979"},
     {playername: "terpko", uid: "1007820601979"},
@@ -25,4 +26,10 @@ function userlistinit() {
 userlistinit();
 // writetofile(userdatapath, userlist);
 
-module.exports = {userlist};
+function getplayernames() {
+    readfromfile(userdatapath + "-undefined.json", userlist);
+    return userlist;
+
+}
+
+module.exports = {userlist,getplayernames};

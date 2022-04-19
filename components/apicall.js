@@ -108,10 +108,6 @@ module.exports = {
     }, setplayername: function (playernameval) {
         playername = playernameval;
         console.log("playername is " + playername);
-    }, getplayername: function () {
-
-        console.log("playername is " + usermanagementobj.userlist[1].playername);
-        return usermanagementobj.userlist;
     }
 
 };
