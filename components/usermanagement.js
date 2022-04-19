@@ -6,15 +6,15 @@ let userlist = [
     {playername: "hakipi", uid: "2545398846"},
     {playername: "TheGTRacer97", uid: "2299827182"},
     {playername: "The9axel5", uid: "2298814335"}
-
-
 ]
+
+
 let userlistinitflag = 0;
 let userdatapath = "./public/userlist";
 
 function userlistinit() {
     // console.log(readfromfile(userdatapath+"-undefined.json"));
-    if (userlistinitflag === 0 && readfromfile(userdatapath+"-undefined.json")) {
+    if (userlistinitflag === 0 && readfromfile(userdatapath + "-undefined.json") === 1) {
 
         writetofile(userdatapath, userlist);
         console.log("written userlist =====================");
@@ -24,6 +24,7 @@ function userlistinit() {
 }
 
 userlistinit();
+
 // writetofile(userdatapath, userlist);
 
 function getplayernames() {
@@ -32,4 +33,6 @@ function getplayernames() {
 
 }
 
-module.exports = {userlist,getplayernames};
+//todo we can get the uid from requesting
+
+module.exports = {userlist, getplayernames};

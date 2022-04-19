@@ -10,6 +10,7 @@ const writetofileobj = require("./datamgr")
 let playername = "";
 
 const request = require('request');
+const {readfromfile} = require("./datamgr");
 
 
 module.exports = {
@@ -85,12 +86,15 @@ module.exports = {
         return databases;
     }, getbridgedata: function (playernameval) {//todo if the user doesnt exist
 //load local data first
-        if (this.readfromfile(localbridgepath + "-" + playernameval + ".json",databases) === 1) {
+        if (readfromfile(localbridgepath + "-" + playernameval + ".json", databases) === 1) {
             console.log("=====bridge file not exist for " + playernameval);
             return {'err': 'file not found'};
         } else {
             console.log("load bridgedata for" + playernameval);
-            this.readfromfile(localbridgepath + "-" + playernameval + ".json",databases);
+            databases = readfromfile(localbridgepath + "-" + playernameval + ".json", databases);
+            console.log(databases);
+
+
             return databases;
 
         }
@@ -99,7 +103,7 @@ module.exports = {
     }, getgamedata: function () {
         if (!gamedata) {
             console.log("calling local game data");
-            this.readfromfile(localgamepath,databases);
+            readfromfile(localgamepath, databases);
             return databases;
         } else {
             return gamedata;

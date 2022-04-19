@@ -18,7 +18,8 @@ module.exports = {
             let contents = fs.readFileSync(localpath, 'utf8');
 
             data = contents;
-            return 0;
+            // console.log(data);
+            return data;
 
         } catch (err) {
             // console.error("file doesnt exist========================================== ");
