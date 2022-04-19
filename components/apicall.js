@@ -85,12 +85,12 @@ module.exports = {
         return databases;
     }, getbridgedata: function (playernameval) {//todo if the user doesnt exist
 //load local data first
-        if (this.readjson(localbridgepath + "-" + playernameval + ".json") === 1) {
+        if (this.readfromfile(localbridgepath + "-" + playernameval + ".json",databases) === 1) {
             console.log("=====bridge file not exist for " + playernameval);
             return {'err': 'file not found'};
         } else {
             console.log("load bridgedata for" + playernameval);
-            this.readjson(localbridgepath + "-" + playernameval + ".json");
+            this.readfromfile(localbridgepath + "-" + playernameval + ".json",databases);
             return databases;
 
         }
@@ -99,7 +99,7 @@ module.exports = {
     }, getgamedata: function () {
         if (!gamedata) {
             console.log("calling local game data");
-            this.readjson(localgamepath);
+            this.readfromfile(localgamepath,databases);
             return databases;
         } else {
             return gamedata;
