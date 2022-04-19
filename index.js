@@ -67,6 +67,11 @@ express()
         apicall.setplayername(req.params.namereq);
         res.send({"param" : req.params.namereq});
     })
+    .get('/getuser', function(req,res) {
+        // console.log(req.params.nameee);
+        // apicall.getplayername();
+        res.send(apicall.getplayername());
+    })
     .get('/db', async (req, res) => {
         try {
             const client = await pool.connect();
