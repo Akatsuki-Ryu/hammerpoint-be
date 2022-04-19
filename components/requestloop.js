@@ -1,4 +1,3 @@
-
 let requesttype = -1;
 const apicall = require("./apicall");
 // let requesttype = -1;
@@ -11,21 +10,24 @@ const requestloop = setInterval(function () {
     } else if (requesttype === "bridge") {
         apicall.callbridge();
     }
-    apicall.callbridge();
-}, 4*60*1000);
+}, 1 * 6 * 1000);
 
 //for testing
 function paraswitch() {
     if (requesttype === "game") {
         requesttype = "bridge";
 
+    } else if (requesttype === "bridge") {
+
+        requesttype = "none";
+
+
     } else {
         requesttype = "game";
-
-
     }
     // module.exports.requesttypeexp = requesttype;
 }
+
 //io to other modules
 function getrequesttype() {
     return requesttype;
