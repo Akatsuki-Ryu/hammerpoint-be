@@ -94,7 +94,21 @@ module.exports = {
         }
 
 
-    }, getgamedata: function () {
+    }, getgamedata: function (playernameval) {
+
+        if (readfromfile(localgamepath + "-" + playernameval + ".json", databases) === 1) {
+            console.log("=====game file not exist for " + playernameval);
+            return {'err': 'file not found'};
+        } else {
+            console.log("send game data for" + playernameval);
+            databases = readfromfile(localgamepath + "-" + playernameval + ".json", databases);
+
+
+            return databases;
+
+        }
+
+
         if (!gamedata) {
             console.log("calling local game data");
             readfromfile(localgamepath, databases);

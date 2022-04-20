@@ -53,10 +53,10 @@ express()
         data = await apicall.getbridgedata(req.params.playernamereq);
         res.send(data);
     })
-    .get('/apicallgame', (req, res) => {
+    .get('/apicallgame/:playernamereq', (req, res) => {
 
         let data = undefined;
-        data = apicall.getgamedata();
+        data = apicall.getgamedata(req.params.playernamereq);
         res.json(data);
     })
     .get('/apitest', (req, res) => {
