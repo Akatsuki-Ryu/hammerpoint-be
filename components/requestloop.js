@@ -5,13 +5,16 @@ let userindex = 0;
 let looptimeoutcontrol = 0;
 let looprequestflag = 0;
 
+
+
 const requestloop = setInterval(function () {
+
     // console.log("reqeust loop is running " + requesttype);
     // for (let i in usermanagementobj.userlist) {
-
+    // console.log(loopinterval);
     //set timeout logic
     looptimeoutcontrol = looptimeoutcontrol + 1;
-    if (looptimeoutcontrol > 40) { //40 is the breaking time in between before refreshing the playerlist bridge
+    if (looptimeoutcontrol > (process.env.ENVVAL === "dev" ? 10 : 40)) { //40 is the breaking time in between before refreshing the playerlist bridge
         looprequestflag = 1;
         // console.log("make request for bridge");
         // looptimeoutcontrol = 0;
@@ -82,5 +85,6 @@ function setrequesttype(_requesttype) {
 module.exports.paraswitchexp = paraswitch;
 module.exports.getrequesttypeexp = getrequesttype;
 module.exports.setrequesttypeexp = setrequesttype;
+
 // module.exports.requesttypeexp = requesttype;
 // exports.requesttypeexp = requesttype;
