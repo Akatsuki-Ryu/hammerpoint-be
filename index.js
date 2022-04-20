@@ -57,7 +57,7 @@ express()
 
         let data = undefined;
         data = apicall.getgamedata(req.params.playernamereq);
-        res.json(data);
+        res.send(data);
     })
     .get('/apitest', (req, res) => {
         // res.json({message: "Hello from hammerpoint server!"});
