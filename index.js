@@ -4,6 +4,8 @@ const path = require('path')
 const cool = require('cool-ascii-faces');
 const PORT = process.env.PORT || 3002
 const requestloop = require('./components/requestloop')
+const dotenv = require("dotenv")
+require('dotenv').config({path: ".env." + process.env.NODE_ENV}); //load the env file accordingly
 
 //database related
 const {Pool} = require('pg');
@@ -18,8 +20,6 @@ const pool = new Pool({
 
 //init parameters
 // let para = -1;
-
-
 // console.log(requestloop);
 
 
@@ -91,6 +91,6 @@ express()
         }
     })
     .listen(PORT, () => {
-        console.log(`Listening on ${PORT}`)
+        console.log(`Listening on ${PORT}` + "  running on " + process.env.ENVVAL);
         wakeUpDyno(process.env.DYNO_URL);
     })
