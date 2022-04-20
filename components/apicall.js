@@ -16,14 +16,14 @@ const {getplayeruid} = require("./usermanagement");
 
 module.exports = {
     callbridge: function (playername) {
-        console.log("call bridge=========================");
+        console.log("call bridge========================="+playername);
         // func1 impl
         let optionsbridge = {
             'method': 'GET',
             'url': 'https://api.mozambiquehe.re/bridge?version=5&platform=PC&player=' + playername + '&auth=CrJTdFiQ8bFKtEHhIP5z',
             'headers': {}
         };
-        console.log(optionsbridge);// the request
+        // console.log(optionsbridge);// the request
         request(optionsbridge, function (error, response) {
             if (error) throw new Error(error);
             // console.log(response.body);
@@ -41,15 +41,15 @@ module.exports = {
 
     }, callgame: function (playername) {
         // func2 impl
-        console.log("call game=========================")
-        playeruid = getplayeruid(playername);
+        console.log("call game=========================" + playername);
+        let playeruid = getplayeruid(playername);
 
         let optionsgame = {
             'method': 'GET',
             'url': 'https://api.mozambiquehe.re/games?version=5&platform=PC&auth=7rggUEagkVtDVm3spk8Z&uid=' + playeruid,
             'headers': {}
         };
-        console.log(optionsgame);
+        // console.log(optionsgame);//the request
         request(optionsgame, function (error, response) {
             if (error) throw new Error(error);
             // console.log(response.body);
