@@ -6,7 +6,9 @@ let playerlist = [
     {playername: "hakipi", uid: "2545398846"},
     {playername: "TheGTRacer97", uid: "2299827182"},
     {playername: "The9axel5", uid: "2298814335"}
-]
+];
+
+let highdemandlist = [];
 
 
 let playerlistinitflag = 0;
@@ -46,4 +48,33 @@ function getplayeruid(playername) {
 
 //todo we can get the uid from requesting
 
-module.exports = {playerlist, getplayernames, getplayeruid};
+
+function highdemandlistmgr(bridgedata, playername) {
+    if (bridgedata.realtime.isOnline === 1) {// if online , add to highdemand list
+        let rta = playerlist.filter(it => it.playername === playername);
+        let ref = highdemandlist.filter(it => it.playername === playername);
+        if (ref.length === 0) {
+            highdemandlist.push(rta[0]);
+            console.log("add to the high demand list   " + playername);
+            console.log(highdemandlist);
+        }
+
+
+    } else if (bridgedata.realtime.isOnline === 0) { //if offline , remove from highdemand list
+        let index = highdemandlist.findIndex(it => it.playername === playername);
+        if (index > -1) {
+            highdemandlist.splice(index, 1);
+        }
+
+    }
+
+}
+
+function gethighdemandlist() {
+
+    console.log("get highdemand list ");
+    return highdemandlist;
+
+}
+
+module.exports = {playerlist, highdemandlist, getplayernames, getplayeruid, highdemandlistmgr, gethighdemandlist};

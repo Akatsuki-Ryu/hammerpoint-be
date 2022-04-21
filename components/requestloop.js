@@ -1,52 +1,54 @@
 let requesttype = -1;
 const apicall = require("./apicall");
 const usermanagementobj = require("./usermanagement")
-let userindex = 0;
+let regularuserindex = 0;
+let highdemanuserindex = 0;
 let looptimeoutcontrol = 0;
-let looprequestflag = 0;
-
+let regularlooprequestflag = 0;
 
 
 const requestloop = setInterval(function () {
 
     // console.log("reqeust loop is running " + requesttype);
-    // for (let i in usermanagementobj.userlist) {
-    // console.log(loopinterval);
+
     //set timeout logic
     looptimeoutcontrol = looptimeoutcontrol + 1;
     if (looptimeoutcontrol > (process.env.ENVVAL === "dev" ? 10 : 40)) { //40 is the breaking time in between before refreshing the playerlist bridge
-        looprequestflag = 1;
-        // console.log("make request for bridge");
-        // looptimeoutcontrol = 0;
+
+        regularlooprequestflag = 1;
     }
-    if (looprequestflag === 1) {
+    //run the regular quest
+    if (regularlooprequestflag === 1) {
 
 //run the request for player
 //         console.log("test request for " + usermanagementobj.playerlist[userindex].playername);
         if (looptimeoutcontrol % 2) {
-            apicall.callbridge(usermanagementobj.playerlist[userindex].playername);
+            apicall.callbridge(usermanagementobj.playerlist[regularuserindex].playername);
+            // console.log("dummy call bridge ---------------------regualr" + usermanagementobj.playerlist[regularuserindex].playername);
         } else {
-            apicall.callgame(usermanagementobj.playerlist[userindex].playername);
-            userindex = userindex + 1;
+            apicall.callgame(usermanagementobj.playerlist[regularuserindex].playername);
+            // console.log("dummy call game ---------------------" + usermanagementobj.playerlist[regularuserindex].playername);
+            regularuserindex = regularuserindex + 1;
         }
 
-        if (userindex === usermanagementobj.playerlist.length) {
-            looprequestflag = 0;
+        if (regularuserindex === usermanagementobj.playerlist.length) {
+            regularlooprequestflag = 0;
             looptimeoutcontrol = 0;
-            userindex = 0;
+            regularuserindex = 0;
             console.log("listening ...");
         }
-    }
+    } else if (regularlooprequestflag === 0) {
+        if (usermanagementobj.highdemandlist.length !== 0) {
+            //run high demand quest
+            apicall.callbridge(usermanagementobj.highdemandlist[highdemanuserindex].playername);
+            // console.log("dummy highdemand call==============" + usermanagementobj.highdemandlist[highdemanuserindex].playername);
+            highdemanuserindex = highdemanuserindex + 1;
+            if (highdemanuserindex === usermanagementobj.highdemandlist.length) {
+                highdemanuserindex = 0;
+            }
+        }
 
 
-//go around players
-//     console.log("test request for " + usermanagementobj.userlist[userindex].playername);
-
-
-    if (requesttype === "game") {
-        // apicall.callgame();
-    } else if (requesttype === "bridge") {
-        // apicall.callbridge(usermanagementobj.userlist[userindex].playername);
     }
 
 }, 1 * 6 * 1000); //6 sec as one unit

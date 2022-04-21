@@ -11,7 +11,7 @@ let playername = "";
 
 const request = require('request');
 const {readfromfile} = require("./datamgr");
-const {getplayeruid} = require("./usermanagement");
+const {getplayeruid, highdemandlistmgr} = require("./usermanagement");
 
 
 module.exports = {
@@ -30,6 +30,7 @@ module.exports = {
             bridgedata = JSON.parse(response.body);
             // console.log("call to write to file" + playername);
             writetofileobj.writetofile(localbridgepath, bridgedata, playername);
+            highdemandlistmgr(bridgedata, playername);
 
         });
 

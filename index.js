@@ -10,7 +10,7 @@ require('dotenv').config({path: ".env." + process.env.NODE_ENV}); //load the env
 
 //database related
 const {Pool} = require('pg');
-const {getplayernames, getplayeruid} = require("./components/usermanagement");
+const {getplayernames, getplayeruid, gethighdemandlist} = require("./components/usermanagement");
 const wakeUpDyno = require("./components/keepawake");
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL, ssl: {
@@ -74,6 +74,11 @@ express()
         // console.log(req.params.nameee);
         // apicall.getplayername();
         res.send(getplayernames());
+    })
+    .get('/gethighdemandlist', function (req, res) {
+        // console.log(req.params.nameee);
+        // apicall.getplayername();
+        res.send(gethighdemandlist());
     })
     .get('/getuidlocal/:playernamereq', function (req, res) {
         // console.log(req.params.nameee);
