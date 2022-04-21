@@ -5,6 +5,7 @@ const cool = require('cool-ascii-faces');
 const PORT = process.env.PORT || 3002
 const requestloop = require('./components/requestloop')
 const dotenv = require("dotenv")
+const cors = require('cors');
 require('dotenv').config({path: ".env." + process.env.NODE_ENV}); //load the env file accordingly
 
 //database related
@@ -25,6 +26,7 @@ const pool = new Pool({
 
 express()
     .use(express.static(path.join(__dirname, 'public')))
+    .use(cors())
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
     .get('/', (req, res) => {
@@ -93,4 +95,4 @@ express()
     .listen(PORT, () => {
         console.log(`Listening on ${PORT}` + "  running on " + process.env.ENVVAL);
         wakeUpDyno(process.env.DYNO_URL);
-    })
+    });
