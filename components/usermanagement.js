@@ -56,7 +56,7 @@ function highdemandlistmgr(bridgedata, playername) {
         if (ref.length === 0) {
             highdemandlist.push(rta[0]);
             console.log("add to the high demand list   " + playername);
-            console.log(highdemandlist);
+            // console.log(highdemandlist);
         }
 
 
@@ -65,6 +65,7 @@ function highdemandlistmgr(bridgedata, playername) {
         if (index > -1) {
             highdemandlist.splice(index, 1);
         }
+        console.log("removed from the high demand list   " + playername);
 
     }
 
