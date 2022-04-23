@@ -1,11 +1,12 @@
 const {writetofile, readfromfile} = require("./datamgr");
+const {callbridge} = require("./apicall");
 
 let playerlist = [
-    {playername: "akabox218", uid: "1007820601979"},
-    {playername: "terpko", uid: "2297370779"},
-    {playername: "hakipi", uid: "2545398846"},
-    {playername: "TheGTRacer97", uid: "2299827182"},
-    {playername: "The9axel5", uid: "2298814335"}
+    {playername: "akabox218", uid: "1007820601979", ingame: 0,needcallbridge:0},
+    {playername: "terpko", uid: "2297370779", ingame: 0},needcallbridge:0,
+    {playername: "hakipi", uid: "2545398846", ingame: 0,needcallbridge:0},
+    {playername: "TheGTRacer97", uid: "2299827182", ingame: 0,needcallbridge:0},
+    {playername: "The9axel5", uid: "2298814335", ingame: 0,needcallbridge:0}
 ];
 
 let highdemandlist = [];
@@ -53,10 +54,26 @@ function highdemandlistmgr(bridgedata, playername) {
     if (bridgedata.realtime.isOnline === 1) {// if online , add to highdemand list
         let rta = playerlist.filter(it => it.playername === playername);
         let ref = highdemandlist.filter(it => it.playername === playername);
-        if (ref.length === 0) {
+        if (ref.length === 0) {//never added to the high demand list
+            if (bridgedata.realtime.isInGame === 1) {
+                rta[0].ingame = 1;
+            }
             highdemandlist.push(rta[0]);
             console.log("add to the high demand list   " + playername);
             // console.log(highdemandlist);
+        } else { //had been in high demand list
+            if (bridgedata.realtime.isInGame === 1) {
+                ref[0].ingame = 1;
+            } else { //player is not in game anymore
+                if (ref[0].ingame === 1) {
+                    //need to call game
+                    ref[0].needcallbridge = 1;
+                    ref[0].ingame = 0;
+                }
+
+
+            }
+
         }
 
 

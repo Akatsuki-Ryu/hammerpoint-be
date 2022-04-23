@@ -40,8 +40,16 @@ const requestloop = setInterval(function () {
     } else if (regularlooprequestflag === 0) {
         if (usermanagementobj.highdemandlist.length !== 0) {
             //run high demand quest
-            apicall.callbridge(usermanagementobj.highdemandlist[highdemanuserindex].playername);
-            // console.log("dummy highdemand call==============" + usermanagementobj.highdemandlist[highdemanuserindex].playername);
+            if (usermanagementobj.highdemandlist[highdemanuserindex].needcallbridge === 1) {
+                apicall.callgame(usermanagementobj.highdemandlist[highdemanuserindex].playername);
+                // console.log("dummy highdemand call game ---------------------" + usermanagementobj.highdemandlist[highdemanuserindex].playername);
+                usermanagementobj.highdemandlist[highdemanuserindex].needcallbridge = 0;
+            } else {
+                apicall.callbridge(usermanagementobj.highdemandlist[highdemanuserindex].playername);
+                // console.log("dummy highdemand call bridge==============" + usermanagementobj.highdemandlist[highdemanuserindex].playername);
+            }
+
+
             highdemanuserindex = highdemanuserindex + 1;
             if (highdemanuserindex === usermanagementobj.highdemandlist.length) {
                 highdemanuserindex = 0;
