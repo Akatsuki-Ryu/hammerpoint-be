@@ -24,10 +24,10 @@ const requestloop = setInterval(function () {
 //         console.log("test request for " + usermanagementobj.playerlist[userindex].playername);
         if (looptimeoutcontrol % 2) {
             apicall.callbridge(usermanagementobj.playerlist[regularuserindex].playername);
-            // console.log("dummy call bridge ---------------------regualr" + usermanagementobj.playerlist[regularuserindex].playername);
+            console.log(" call bridge ---------------------regualr " + usermanagementobj.playerlist[regularuserindex].playername);
         } else {
             apicall.callgame(usermanagementobj.playerlist[regularuserindex].playername);
-            // console.log("dummy call game ---------------------" + usermanagementobj.playerlist[regularuserindex].playername);
+            console.log(" call game ---------------------regular " + usermanagementobj.playerlist[regularuserindex].playername);
             regularuserindex = regularuserindex + 1;
         }
 
@@ -40,13 +40,13 @@ const requestloop = setInterval(function () {
     } else if (regularlooprequestflag === 0) {
         if (usermanagementobj.highdemandlist.length !== 0) {
             //run high demand quest
-            if (usermanagementobj.highdemandlist[highdemanuserindex].needcallbridge === 1) {
+            if (usermanagementobj.highdemandlist[highdemanuserindex].needcallgame === 1) {
                 apicall.callgame(usermanagementobj.highdemandlist[highdemanuserindex].playername);
-                // console.log("dummy highdemand call game ---------------------" + usermanagementobj.highdemandlist[highdemanuserindex].playername);
-                usermanagementobj.highdemandlist[highdemanuserindex].needcallbridge = 0;
+                console.log("  call game =====================highdemand " + usermanagementobj.highdemandlist[highdemanuserindex].playername);
+                usermanagementobj.highdemandlist[highdemanuserindex].needcallgame = 0;
             } else {
                 apicall.callbridge(usermanagementobj.highdemandlist[highdemanuserindex].playername);
-                // console.log("dummy highdemand call bridge==============" + usermanagementobj.highdemandlist[highdemanuserindex].playername);
+                console.log("  call bridge====================highdemand " + usermanagementobj.highdemandlist[highdemanuserindex].playername);
             }
 
 
@@ -59,7 +59,7 @@ const requestloop = setInterval(function () {
 
     }
 
-}, 1 * 6 * 1000); //6 sec as one unit
+}, 1 * 5 * 1000); //6 sec as one unit
 
 //for testing
 function paraswitch() {

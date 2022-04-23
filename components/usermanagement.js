@@ -2,11 +2,11 @@ const {writetofile, readfromfile} = require("./datamgr");
 const {callbridge} = require("./apicall");
 
 let playerlist = [
-    {playername: "akabox218", uid: "1007820601979", ingame: 0,needcallbridge:0},
-    {playername: "terpko", uid: "2297370779", ingame: 0},needcallbridge:0,
-    {playername: "hakipi", uid: "2545398846", ingame: 0,needcallbridge:0},
-    {playername: "TheGTRacer97", uid: "2299827182", ingame: 0,needcallbridge:0},
-    {playername: "The9axel5", uid: "2298814335", ingame: 0,needcallbridge:0}
+    {playername: "akabox218", uid: "1007820601979", ingame: 0,needcallgame:0},
+    {playername: "terpko", uid: "2297370779", ingame: 0,needcallgame:0},
+    {playername: "hakipi", uid: "2545398846", ingame: 0,needcallgame:0},
+    {playername: "TheGTRacer97", uid: "2299827182", ingame: 0,needcallgame:0},
+    {playername: "The9axel5", uid: "2298814335", ingame: 0,needcallgame:0}
 ];
 
 let highdemandlist = [];
@@ -67,7 +67,7 @@ function highdemandlistmgr(bridgedata, playername) {
             } else { //player is not in game anymore
                 if (ref[0].ingame === 1) {
                     //need to call game
-                    ref[0].needcallbridge = 1;
+                    ref[0].needcallgame = 1;
                     ref[0].ingame = 0;
                 }
 

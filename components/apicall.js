@@ -16,7 +16,7 @@ const {getplayeruid, highdemandlistmgr} = require("./usermanagement");
 
 module.exports = {
     callbridge: function (playername) {
-        console.log("call bridge========================="+playername);
+        // console.log("call bridge========================="+playername);
         // func1 impl
         let optionsbridge = {
             'method': 'GET',
@@ -42,7 +42,7 @@ module.exports = {
 
     }, callgame: function (playername) {
         // func2 impl
-        console.log("call game=========================" + playername);
+        // console.log("call game=========================" + playername);
         let playeruid = getplayeruid(playername);
 
         let optionsgame = {
