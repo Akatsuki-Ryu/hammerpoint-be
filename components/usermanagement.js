@@ -52,6 +52,10 @@ function getplayeruid(playername) {
 
   let freehighdemandcredit = 0;
 
+function getfreehighdemandcredit() {
+    return freehighdemandcredit;
+}
+
 function highdemandlistmgr(bridgedata, playername) {
     freehighdemandcredit = 0;
     let timestampnow = new Date();
@@ -63,6 +67,7 @@ function highdemandlistmgr(bridgedata, playername) {
         }
 
     }
+    console.log("free credit = " + freehighdemandcredit);
 
     if (bridgedata.realtime.isOnline === 1) {// if online , add to highdemand list
         let rta = playerlist.filter(it => it.playername === playername);
@@ -118,4 +123,4 @@ function gethighdemandlist() {
 
 }
 
-module.exports = {playerlist, highdemandlist,freehighdemandcredit, getplayernames, getplayeruid, highdemandlistmgr, gethighdemandlist};
+module.exports = {playerlist, highdemandlist, getplayernames, getplayeruid, highdemandlistmgr, gethighdemandlist,getfreehighdemandcredit};
