@@ -17,7 +17,7 @@ const {
     getfreehighdemandcredit
 } = require("./components/usermanagement");
 const wakeUpDyno = require("./components/keepawake");
-const {getserverstatus} = require("./components/apicall");
+const {getserverstatus} = require("./components/serverinfomgr");
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL, ssl: {
         rejectUnauthorized: false

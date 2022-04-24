@@ -1,6 +1,7 @@
 let requesttype = -1;
 const apicall = require("./apicall");
 const usermanagementobj = require("./usermanagement")
+const {serverinfo} = require("./serverinfomgr");
 let regularuserindex = 0;
 let highdemanuserindex = 0;
 let looptimeoutcontrol = 0;
@@ -41,6 +42,11 @@ const requestloop = setInterval(function () {
             //         apicall.callgame(usermanagementobj.playerlist[regularuserindex].playername);
             //     console.log(" call game ---------------------regular " + usermanagementobj.playerlist[regularuserindex].playername);
             // }
+            if (timestampnow - serverinfo[0].servercalltimestamp > 60 * 60 * 1000) {
+                if (process.env.ENVVAL === "prod") {
+                    apicall.callserverstatus();
+                }
+            }
 
 
             regularuserindex = regularuserindex + 1;
@@ -76,7 +82,7 @@ const requestloop = setInterval(function () {
 
     }
 
-}, 1 * 5 * 1000); //6 sec as one unit
+}, 5 * 1000); //6 sec as one unit
 
 //for testing
 function paraswitch() {

@@ -14,6 +14,7 @@ let playername = "";
 const request = require('request');
 const {readfromfile} = require("./datamgr");
 const {getplayeruid, highdemandlistmgr} = require("./usermanagement");
+const {updateserverinfotimestamp} = require("./serverinfomgr");
 
 
 module.exports = {
@@ -79,6 +80,7 @@ module.exports = {
             // console.log(response.body);
             serverdata = JSON.parse(response.body);
             writetofileobj.writetofile(localserverpath, serverdata);
+            updateserverinfotimestamp();
         });
         return "call remove server status  ";
 
@@ -143,16 +145,6 @@ module.exports = {
         playername = playernameval;
         console.log("playername is " + playername);
     },
-    getserverstatus: function () {
-        let data = "something";
-        if (readfromfile(localserverpath + "-undefined.json", data) === 1) {
-            return {err: "fail to get server status, please try again"};
 
-        }
-        data = readfromfile(localserverpath + "-undefined.json", data);
-        return data;
-
-
-    }
 
 };
