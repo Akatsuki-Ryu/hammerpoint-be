@@ -6,7 +6,9 @@ let playerlist = [
     {playername: "terpko", uid: "2297370779", ingame: 0,needcallgame:0,highrequesttimestamp:0},
     {playername: "hakipi", uid: "2545398846", ingame: 0,needcallgame:0,highrequesttimestamp:0},
     {playername: "TheGTRacer97", uid: "2299827182", ingame: 0,needcallgame:0,highrequesttimestamp:0},
-    {playername: "The9axel5", uid: "2298814335", ingame: 0,needcallgame:0,highrequesttimestamp:0}
+    {playername: "The9axel5", uid: "2298814335", ingame: 0,needcallgame:0,highrequesttimestamp:0},
+    {playername: "Lundaki", uid: "2381075935", ingame: 0,needcallgame:0,highrequesttimestamp:0}
+
 ];
 
 let highdemandlist = [];
