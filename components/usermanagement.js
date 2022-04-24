@@ -50,9 +50,10 @@ function getplayeruid(playername) {
 //todo we can get the uid from requesting
 
 
-  let freehighdemandcredit = 0;
+  let freehighdemandcredit = -1;
 
 function getfreehighdemandcredit() {
+
     return freehighdemandcredit;
 }
 
@@ -64,6 +65,9 @@ function highdemandlistmgr(bridgedata, playername) {
         if(timestampnow - playerlist[i].highrequesttimestamp > 60 * 60 * 1000)
         {
             freehighdemandcredit++;
+            if (freehighdemandcredit >5) {
+                freehighdemandcredit = 5; //restrict the credit max to 5
+            }
         }
 
     }
