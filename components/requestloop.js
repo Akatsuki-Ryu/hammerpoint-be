@@ -31,11 +31,12 @@ const requestloop = setInterval(function () {
 
             console.log(" call bridge ---------------------regualr " + usermanagementobj.playerlist[regularuserindex].playername);
         } else {
-            if (timestampnow - usermanagementobj.playerlist[regularuserindex].highrequesttimestamp > 60 * 60 * 1000) {
-                if (process.env.ENVVAL === "prod")
-                    apicall.callgame(usermanagementobj.playerlist[regularuserindex].playername);
-                console.log(" call game ---------------------regular " + usermanagementobj.playerlist[regularuserindex].playername);
-            }
+            //we dont call game , only call game when people in the high demand
+            // if (timestampnow - usermanagementobj.playerlist[regularuserindex].highrequesttimestamp > 60 * 60 * 1000) {
+            //     if (process.env.ENVVAL === "prod")
+            //         apicall.callgame(usermanagementobj.playerlist[regularuserindex].playername);
+            //     console.log(" call game ---------------------regular " + usermanagementobj.playerlist[regularuserindex].playername);
+            // }
 
 
             regularuserindex = regularuserindex + 1;
