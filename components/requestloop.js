@@ -23,10 +23,14 @@ const requestloop = setInterval(function () {
 //run the request for player
 //         console.log("test request for " + usermanagementobj.playerlist[userindex].playername);
         if (looptimeoutcontrol % 2) {
-            apicall.callbridge(usermanagementobj.playerlist[regularuserindex].playername);
+            if (process.env.ENVVAL === "prod") {
+                apicall.callbridge(usermanagementobj.playerlist[regularuserindex].playername);
+            }
+
             console.log(" call bridge ---------------------regualr " + usermanagementobj.playerlist[regularuserindex].playername);
         } else {
-            apicall.callgame(usermanagementobj.playerlist[regularuserindex].playername);
+            if (process.env.ENVVAL === "prod")
+                apicall.callgame(usermanagementobj.playerlist[regularuserindex].playername);
             console.log(" call game ---------------------regular " + usermanagementobj.playerlist[regularuserindex].playername);
             regularuserindex = regularuserindex + 1;
         }
@@ -41,11 +45,13 @@ const requestloop = setInterval(function () {
         if (usermanagementobj.highdemandlist.length !== 0) {
             //run high demand quest
             if (usermanagementobj.highdemandlist[highdemanuserindex].needcallgame === 1) {
-                apicall.callgame(usermanagementobj.highdemandlist[highdemanuserindex].playername);
+                if (process.env.ENVVAL === "prod")
+                    apicall.callgame(usermanagementobj.highdemandlist[highdemanuserindex].playername);
                 console.log("  call game =====================highdemand " + usermanagementobj.highdemandlist[highdemanuserindex].playername);
                 usermanagementobj.highdemandlist[highdemanuserindex].needcallgame = 0;
             } else {
-                apicall.callbridge(usermanagementobj.highdemandlist[highdemanuserindex].playername);
+                if (process.env.ENVVAL === "prod")
+                    apicall.callbridge(usermanagementobj.highdemandlist[highdemanuserindex].playername);
                 console.log("  call bridge====================highdemand " + usermanagementobj.highdemandlist[highdemanuserindex].playername);
             }
 
