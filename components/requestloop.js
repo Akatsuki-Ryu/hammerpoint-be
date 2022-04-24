@@ -9,7 +9,9 @@ let regularlooprequestflag = 0;
 
 const requestloop = setInterval(function () {
 
-    // console.log("reqeust loop is running " + requesttype);
+    let timestampnow = new Date();
+    timestampnow = Date.now();
+    console.log("reqeust loop is running " + requesttype);
 
     //set timeout logic
     looptimeoutcontrol = looptimeoutcontrol + 1;
@@ -29,9 +31,13 @@ const requestloop = setInterval(function () {
 
             console.log(" call bridge ---------------------regualr " + usermanagementobj.playerlist[regularuserindex].playername);
         } else {
-            if (process.env.ENVVAL === "prod")
-                apicall.callgame(usermanagementobj.playerlist[regularuserindex].playername);
-            console.log(" call game ---------------------regular " + usermanagementobj.playerlist[regularuserindex].playername);
+            if (timestampnow - usermanagementobj.playerlist[regularuserindex].highrequesttimestamp > 60 * 60 * 1000) {
+                if (process.env.ENVVAL === "prod")
+                    apicall.callgame(usermanagementobj.playerlist[regularuserindex].playername);
+                console.log(" call game ---------------------regular " + usermanagementobj.playerlist[regularuserindex].playername);
+            }
+
+
             regularuserindex = regularuserindex + 1;
         }
 
