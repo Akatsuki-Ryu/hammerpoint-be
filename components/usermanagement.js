@@ -50,14 +50,25 @@ function getplayeruid(playername) {
 //todo we can get the uid from requesting
 
 
+  let freehighdemandcredit = 0;
+
 function highdemandlistmgr(bridgedata, playername) {
+    freehighdemandcredit = 0;
     let timestampnow = new Date();
     timestampnow = Date.now();
+    for (let i = 0; i < playerlist.length; i++) {
+        if(timestampnow - playerlist[i].highrequesttimestamp > 60 * 60 * 1000)
+        {
+            freehighdemandcredit++;
+        }
+
+    }
+
     if (bridgedata.realtime.isOnline === 1) {// if online , add to highdemand list
         let rta = playerlist.filter(it => it.playername === playername);
         let ref = highdemandlist.filter(it => it.playername === playername);
         if (ref.length === 0) {//never added to the high demand list
-            if (highdemandlist.length >=5) {
+            if (freehighdemandcredit===0) {
                 console.log("highdemand queue full , not adding this player");
                 return 0;
             }
@@ -106,4 +117,4 @@ function gethighdemandlist() {
 
 }
 
-module.exports = {playerlist, highdemandlist, getplayernames, getplayeruid, highdemandlistmgr, gethighdemandlist};
+module.exports = {playerlist, highdemandlist,freehighdemandcredit, getplayernames, getplayeruid, highdemandlistmgr, gethighdemandlist};
