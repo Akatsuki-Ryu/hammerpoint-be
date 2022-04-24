@@ -103,8 +103,9 @@ function highdemandlistmgr(bridgedata, playername) {
         let index = highdemandlist.findIndex(it => it.playername === playername);
         if (index > -1) {
             highdemandlist.splice(index, 1);
+            console.log("removed from the high demand list   " + playername);
         }
-        console.log("removed from the high demand list   " + playername);
+
 
     }
 
