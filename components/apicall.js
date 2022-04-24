@@ -2,8 +2,10 @@ const fs = require('fs');
 let databases = undefined;
 let bridgedata = undefined;
 let gamedata = undefined;
+let serverdata = undefined;
 const localbridgepath = "./public/bridgedata";
-const localgamepath = "./public/gamedata.json";
+const localgamepath = "./public/gamedata";
+const localserverpath = "./public/serverdata";
 const usermanagementobj = require("./usermanagement")
 const writetofileobj = require("./datamgr")
 
@@ -59,10 +61,29 @@ module.exports = {
         });
 
 
-        if (gamedata) {
 
-        }
-    }, readjson: function (localpath) {
+        return "manually remote call /game ";
+    }, callserverstatus: function () {
+        // func2 impl
+        console.log("call serverstatus=========================");
+        // let playeruid = getplayeruid(playername);
+
+        let optionsserver = {
+            'method': 'GET',
+            'url': 'https://api.mozambiquehe.re/servers?auth=CrJTdFiQ8bFKtEHhIP5z',
+            'headers': {}
+        };
+        // console.log(optionsgame);//the request
+        request(optionsserver, function (error, response) {
+            if (error) throw new Error(error);
+            // console.log(response.body);
+            serverdata = JSON.parse(response.body);
+            writetofileobj.writetofile(localserverpath, serverdata);
+        });
+        return "call remove server status  ";
+
+    }
+    , readjson: function (localpath) {
         let statuscode = -1;
         //file handling
 
@@ -121,6 +142,17 @@ module.exports = {
     }, setplayername: function (playernameval) {
         playername = playernameval;
         console.log("playername is " + playername);
+    },
+    getserverstatus: function () {
+        let data = "something";
+        if (readfromfile(localserverpath + "-undefined.json", data) === 1) {
+            return {err: "fail to get server status, please try again"};
+
+        }
+        data = readfromfile(localserverpath + "-undefined.json", data);
+        return data;
+
+
     }
 
 };
