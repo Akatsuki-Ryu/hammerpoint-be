@@ -11,7 +11,11 @@ const requestloop = setInterval(function () {
 
     let timestampnow = new Date();
     timestampnow = Date.now();
-    console.log("reqeust loop is running " + requesttype);
+
+    if (process.env.ENVVAL === "dev") {
+        console.log("reqeust loop is running " + requesttype);
+    }
+
 
     //set timeout logic
     looptimeoutcontrol = looptimeoutcontrol + 1;
