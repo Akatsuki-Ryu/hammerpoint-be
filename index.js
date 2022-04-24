@@ -10,8 +10,14 @@ require('dotenv').config({path: ".env." + process.env.NODE_ENV}); //load the env
 
 //database related
 const {Pool} = require('pg');
-const {getplayernames, getplayeruid, gethighdemandlist, getfreehighdemandcredit} = require("./components/usermanagement");
+const {
+    getplayernames,
+    getplayeruid,
+    gethighdemandlist,
+    getfreehighdemandcredit
+} = require("./components/usermanagement");
 const wakeUpDyno = require("./components/keepawake");
+const {getserverstatus} = require("./components/apicall");
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL, ssl: {
         rejectUnauthorized: false
@@ -60,6 +66,27 @@ express()
         let data = undefined;
         data = apicall.getgamedata(req.params.playernamereq);
         res.send(data);
+    })
+    // .get('/apicallgameremove/:playernamereq', (req, res) => {
+    //
+    //     let data = undefined;
+    //     // data = apicall.callgame(req.params.playernamereq);// dangerous func
+    //     res.send(data);
+    // })
+    .get('/callserverstatus', (req, res) => {
+
+        let data = "something";
+        data = apicall.callserverstatus();
+        // console.log(data);
+        res.send(data);
+
+    })
+    .get('/getserverstatus', (req, res) => {
+
+        let data = undefined;
+        data = getserverstatus();
+        res.send(data);
+
     })
     .get('/apitest', (req, res) => {
         // res.json({message: "Hello from hammerpoint server!"});
