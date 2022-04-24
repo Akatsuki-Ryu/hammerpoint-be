@@ -1,5 +1,6 @@
 const {readfromfile} = require("./datamgr");
 let serverinfo = [{servercalltimestamp: 0}];
+const localserverpath = "./public/serverdata";
 
 function getserverstatus  () {
     let data = "something";
@@ -23,4 +24,4 @@ function updateserverinfotimestamp() {
 
 
 
-module.exports = {serverinfo,getserverstatus,updateserverinfotimestamp};
+module.exports = {serverinfo,localserverpath,getserverstatus,updateserverinfotimestamp};

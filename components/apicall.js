@@ -5,7 +5,7 @@ let gamedata = undefined;
 let serverdata = undefined;
 const localbridgepath = "./public/bridgedata";
 const localgamepath = "./public/gamedata";
-const localserverpath = "./public/serverdata";
+
 const usermanagementobj = require("./usermanagement")
 const writetofileobj = require("./datamgr")
 
@@ -14,7 +14,7 @@ let playername = "";
 const request = require('request');
 const {readfromfile} = require("./datamgr");
 const {getplayeruid, highdemandlistmgr} = require("./usermanagement");
-const {updateserverinfotimestamp} = require("./serverinfomgr");
+const {updateserverinfotimestamp, localserverpath} = require("./serverinfomgr");
 
 
 module.exports = {
