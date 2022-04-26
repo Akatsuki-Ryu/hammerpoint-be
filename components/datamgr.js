@@ -91,6 +91,7 @@ module.exports = {
             try {
 
                 for (let i = data.length - 1; i >= 0; i--) {
+                    console.log("i " + i + "  " + data[i].gameStartTimestamp + " ");
 
                     const result = await client.query(`
                         INSERT INTO public."gamedata-` + playername + `" (
@@ -115,7 +116,7 @@ module.exports = {
             console.error(err);
         }
 
-    },readfromgamedb: async function (data, playername) {
+    }, readfromgamedb: async function (data, playername) {
 
         //purefy the dataset to remove unusual characters
         // data = JSON.stringify(data);
@@ -127,10 +128,10 @@ module.exports = {
             const client = await datapool.connect();
             try {
 
-
-
-                    const result = await client.query(`
-                    SELECT * FROM public."gamedata-`+playername+`"
+                console.log("reading database for the game db");
+                const result = await client.query(`
+                    SELECT *
+                    FROM public."gamedata-` + playername + `"
 ORDER BY gamedata ASC 
 
             `);
