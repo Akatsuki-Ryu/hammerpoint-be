@@ -18,6 +18,7 @@ const {
 } = require("./components/usermanagement");
 const wakeUpDyno = require("./components/keepawake");
 const {getserverstatus} = require("./components/serverinfomgr");
+const {readfromgamedb} = require("./components/datamgr");
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL, ssl: {
         rejectUnauthorized: false
@@ -76,7 +77,7 @@ express()
     .get('/callgame', (req, res) => {
 
         let data = "something";
-        data = apicall.callgame("akabox218");
+        data = apicall.callgame("Lundaki");
         // console.log(data);
         res.send(data);
 
@@ -132,6 +133,11 @@ express()
             console.error(err);
             res.send("Error " + err);
         }
+    })
+    .get('/readgamedb', async (req, res) => {
+        let data = undefined;
+        await readfromgamedb(data,"akabox218");
+        res.send(data);
     })
     .get('/dbwrite/:uid/:username', async (req, res) => {
         let data=apicall.getbridgedata("terpko");
