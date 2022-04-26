@@ -40,7 +40,7 @@ module.exports = {
             try {
                 const result = await client.query(`
                     INSERT INTO public.bridgedata (uid, username, objdata)
-                    VALUES ('` + playeruid + `'::text, '` + playername + `'::text, '{}'::jsonb)
+                    VALUES ('` + playeruid + `'::text, '` + playername + `'::text, '` + data + `'::jsonb)
                 returning uid;
 
 
@@ -52,9 +52,10 @@ module.exports = {
                 // console.log(err);
                 const result = await client.query(`
                     UPDATE public.bridgedata
-                    SET username = '` + playername + `'::text
+                    SET username = '` + playername + `'::text, 
+                    objdata = '` + data + `'::jsonb
                     WHERE
-                        uid = '` + playeruid + `';
+                        uid = '1';
 
                 `);
             }
