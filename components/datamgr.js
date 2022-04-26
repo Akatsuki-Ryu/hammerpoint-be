@@ -56,7 +56,7 @@ module.exports = {
                     SET username = '` + playername + `'::text, 
                     objdata = '` + JSON.stringify(data) + `'::jsonb
                     WHERE
-                        uid = '1';
+                        uid = '`+playeruid+`';
 
                 `);
             }
