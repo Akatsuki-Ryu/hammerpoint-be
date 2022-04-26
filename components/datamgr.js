@@ -35,13 +35,16 @@ module.exports = {
         }
     },
     writetodb: async function (data, playername, playeruid) {
+
+        data = JSON.stringify(data);
+        data = String.replace(/'/g, '');
         // console.log(data);
         try {
             const client = await datapool.connect();
             try {
                 const result = await client.query(`
                     INSERT INTO public.bridgedata (uid, username, objdata)
-                    VALUES ('` + playeruid + `'::text, '` + playername + `'::text, '` + JSON.stringify(data) + `'::json)
+                    VALUES ('` + playeruid + `'::text, '` + playername + `'::text, '` + JSON.stringify(data) + `'::jsonb)
                 returning uid;
 
 
@@ -55,9 +58,9 @@ module.exports = {
                     const result = await client.query(`
                     UPDATE public.bridgedata
                     SET username = '` + playername + `'::text, 
-                    objdata = '` + JSON.stringify(data) + `'::json
+                    objdata = '` + JSON.stringify(data) + `'::jsonb
                     WHERE
-                        uid = '`+playeruid+`';
+                        uid = '`+playeruid+`'::text;
 
                 `);
                 }catch (err) {
