@@ -1,6 +1,6 @@
 const fs = require("fs");
 const {Pool} = require('pg');
-const pool = new Pool({
+const datapool = new Pool({
     connectionString: process.env.DATABASE_URL, ssl: {
         rejectUnauthorized: false
     }
@@ -37,7 +37,7 @@ module.exports = {
     writetodb: async function (data, playername, playeruid) {
         // console.log(data);
         try {
-            const client = await pool.connect();
+            const client = await datapool.connect();
             try {
                 const result = await client.query(`
                     INSERT INTO public.bridgedata (uid, username, objdata)
@@ -49,9 +49,10 @@ module.exports = {
 
             `);
             } catch (err) {
-                console.log("this is the catch");
+                console.log("user exist ");
                 // console.log(err);
-                const result = await client.query(`
+                try {
+                    const result = await client.query(`
                     UPDATE public.bridgedata
                     SET username = '` + playername + `'::text, 
                     objdata = '` + JSON.stringify(data) + `'::jsonb
@@ -59,6 +60,11 @@ module.exports = {
                         uid = '`+playeruid+`';
 
                 `);
+                }catch (err) {
+                    console.log("soemthing go wrong withdata base for " + playername);
+                    console.log(err);
+                }
+
             }
 
             // console.log(result);
