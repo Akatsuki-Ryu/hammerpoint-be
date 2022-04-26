@@ -69,10 +69,10 @@ express()
         data = await readfromgamedb(data,req.params.playernamereq);
         res.send(data);
     })
-    .get('/callgame', (req, res) => {
+    .get('/callgame/:playernamereq', (req, res) => {
 
         let data = "something";
-        data = apicall.callgame("Lundaki");
+        data = apicall.callgame(req.params.playernamereq);
         // console.log(data);
         res.send(data);
 
