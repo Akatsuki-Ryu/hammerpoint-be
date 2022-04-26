@@ -35,6 +35,7 @@ module.exports = {
         }
     },
     writetodb: async function (data, playername, playeruid) {
+        // console.log(data);
         try {
             const client = await pool.connect();
             try {
@@ -53,7 +54,7 @@ module.exports = {
                 const result = await client.query(`
                     UPDATE public.bridgedata
                     SET username = '` + playername + `'::text, 
-                    objdata = '` + data + `'::jsonb
+                    objdata = '` + JSON.stringify(data) + `'::jsonb
                     WHERE
                         uid = '1';
 
