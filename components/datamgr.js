@@ -118,7 +118,7 @@ module.exports = {
         }
 
     }, readfromgamedb: async function (data, playername) {
-
+        let gamedataarray = [];
         //purefy the dataset to remove unusual characters
         // data = JSON.stringify(data);
         //data = data.replace(/'/g, '');
@@ -130,12 +130,16 @@ module.exports = {
             try {
 
                 const result = await client.query(`
-                    SELECT *
+                    SELECT gamedata
                     FROM public."gamedata-` + playername + `"
-ORDER BY gamedata ASC 
+ORDER BY timestamp ASC 
 
             `);
-                data = result;
+                for (let i = 0; i < result.rows.length; i++) {
+                    gamedataarray.push(result.rows[i].gamedata);
+                    // console.log(result.rows[i].gamedata);
+                }
+                data = gamedataarray;
 
             } catch (err) {
                 console.log(err);

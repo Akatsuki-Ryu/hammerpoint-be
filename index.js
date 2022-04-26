@@ -67,7 +67,7 @@ express()
         let data = undefined;
         // data = apicall.getgamedata(req.params.playernamereq);
         data = await readfromgamedb(data,req.params.playernamereq);
-        res.send(data.rows);
+        res.send(data);
     })
     .get('/callgame', (req, res) => {
 
