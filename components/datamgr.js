@@ -41,7 +41,7 @@ module.exports = {
             try {
                 const result = await client.query(`
                     INSERT INTO public.bridgedata (uid, username, objdata)
-                    VALUES ('` + playeruid + `'::text, '` + playername + `'::text, '` + data + `'::jsonb)
+                    VALUES ('` + playeruid + `'::text, '` + playername + `'::text, '` + JSON.stringify(data) + `'::jsonb)
                 returning uid;
 
 
