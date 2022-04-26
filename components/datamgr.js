@@ -146,7 +146,7 @@ ORDER BY gamedata ASC
 
             // console.log(results.results);
             client.release();
-
+            return data;
         } catch (err) {
             console.error(err);
         }

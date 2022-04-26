@@ -136,7 +136,7 @@ express()
     })
     .get('/readgamedb', async (req, res) => {
         let data = undefined;
-        await readfromgamedb(data,"akabox218");
+        data = await readfromgamedb(data,"akabox218");
         res.send(data);
     })
     .get('/dbwrite/:uid/:username', async (req, res) => {
