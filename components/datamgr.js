@@ -34,13 +34,13 @@ module.exports = {
 
         }
     },
-    writetodb: async function ( data, playername, playeruid) {
+    writetodb: async function (data, playername, playeruid) {
         try {
             const client = await pool.connect();
             try {
                 const result = await client.query(`
                     INSERT INTO public.bridgedata (uid, username, objdata)
-                    VALUES ('` + playeruid + `'::integer, '`+playername+`'::text, '{}'::jsonb)
+                    VALUES ('` + playeruid + `'::text, '` + playername + `'::text, '{}'::jsonb)
                 returning uid;
 
 
@@ -48,20 +48,15 @@ module.exports = {
 
             `);
             } catch (err) {
-                console.log("this is the catch if user exists ");
+                console.log("this is the catch");
                 // console.log(err);
-                try {
-                    const result = await client.query(`
+                const result = await client.query(`
                     UPDATE public.bridgedata
-                    SET username = '`+playername+`'::text
+                    SET username = '` + playername + `'::text
                     WHERE
-                        uid = `+playeruid+`;
+                        uid = '` + playeruid + `';
 
                 `);
-                }catch (e) {
-                    console.log(e);
-                }
-
             }
 
             // console.log(result);
