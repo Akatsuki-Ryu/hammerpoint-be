@@ -77,8 +77,7 @@ module.exports = {
             console.error(err);
         }
 
-    },
-    writetogamedb: async function (data, playername) {
+    }, writetogamedb: async function (data, playername) {
 
         //purefy the dataset to remove unusual characters
         // data = JSON.stringify(data);
@@ -90,31 +89,33 @@ module.exports = {
             const client = await datapool.connect();
             try {
 
-                for (i = data.length - 1; i >= 0; i--) {
+                for (let i = data.length - 1; i >= 0; i--) {
 
                     const result = await client.query(`
                         INSERT INTO public."gamedata-` + playername + `" (
 "timestamp", timeindex, playername, gamedata) VALUES (
 '` + data[i].gameStartTimestamp + `'::text, '1'::text, '` + playername + `'::text, '` + JSON.stringify(data[i]) + `'::jsonb)
- returning "timestamp";
+ ON CONFLICT ("timestamp") DO UPDATE public."gamedata-` + playername + `"
+                        SET "timestamp" = '` + data[i].gameStartTimestamp + `'::text, timeindex = '1'::text, playername = '` + playername + `'::text, gamedata = '` + JSON.stringify(data[i]) + `::jsonb WHERE
+"timestamp" = '` + data[i].gameStartTimestamp + `';
 
             `);
                 }
             } catch (err) {
                 // console.log("user exist ");
                 // console.log(err);
-                try {
-                    const result = await client.query(`
-                        UPDATE public."gamedata-\` + playername + \`"
-                        SET "timestamp" = '` + data[i].gameStartTimestamp + `'::text, timeindex = '1'::text, playername = '` + playername + `'::text, gamedata = '` + JSON.stringify(data[i]) + `::jsonb WHERE
-"timestamp" = '1';
-
-                `);
-                } catch (err) {
-                    console.log("soemthing go wrong withdata base for " + playername);
-                    console.log(err);
-                }
-
+//                 try {
+//                     const result = await client.query(`
+//                         UPDATE public."gamedata-` + playername + `"
+//                         SET "timestamp" = '` + data[i].gameStartTimestamp + `'::text, timeindex = '1'::text, playername = '` + playername + `'::text, gamedata = '` + JSON.stringify(data[i]) + `::jsonb WHERE
+// "timestamp" = '1';
+//
+//                 `);
+//                 } catch (err) {
+//                     console.log("soemthing go wrong withdata base for " + playername);
+//                     console.log(err);
+//                 }
+                console.log(err);
             }
 
             // console.log(result);
