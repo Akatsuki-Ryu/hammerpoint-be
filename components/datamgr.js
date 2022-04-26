@@ -132,7 +132,7 @@ module.exports = {
                 const result = await client.query(`
                     SELECT gamedata
                     FROM public."gamedata-` + playername + `"
-ORDER BY timestamp ASC 
+ORDER BY timestamp DESC 
 
             `);
                 for (let i = 0; i < result.rows.length; i++) {
