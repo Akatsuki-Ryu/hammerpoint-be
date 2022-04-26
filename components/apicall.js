@@ -7,7 +7,7 @@ const localbridgepath = "./public/bridgedata";
 const localgamepath = "./public/gamedata";
 
 const usermanagementobj = require("./usermanagement")
-const writetofileobj = require("./datamgr")
+const datamanagerobj = require("./datamgr")
 
 let playername = "";
 
@@ -21,6 +21,7 @@ module.exports = {
     callbridge: function (playername) {
         // console.log("call bridge========================="+playername);
         // func1 impl
+        let playeruid = getplayeruid(playername);
         let optionsbridge = {
             'method': 'GET',
             'url': 'https://api.mozambiquehe.re/bridge?version=5&platform=PC&player=' + playername + '&auth=CrJTdFiQ8bFKtEHhIP5z',
@@ -32,7 +33,8 @@ module.exports = {
             // console.log(response.body);
             bridgedata = JSON.parse(response.body);
             // console.log("call to write to file" + playername);
-            writetofileobj.writetofile(localbridgepath, bridgedata, playername);
+            datamanagerobj.writetofile(localbridgepath, bridgedata, playername);
+
             highdemandlistmgr(bridgedata, playername);
 
         });
@@ -58,7 +60,7 @@ module.exports = {
             if (error) throw new Error(error);
             // console.log(response.body);
             gamedata = JSON.parse(response.body);
-            writetofileobj.writetofile(localgamepath, gamedata, playername)
+            datamanagerobj.writetofile(localgamepath, gamedata, playername)
         });
 
 
@@ -79,7 +81,7 @@ module.exports = {
             if (error) throw new Error(error);
             // console.log(response.body);
             serverdata = JSON.parse(response.body);
-            writetofileobj.writetofile(localserverpath, serverdata);
+            datamanagerobj.writetofile(localserverpath, serverdata);
             updateserverinfotimestamp();
         });
         return "call remove server status  ";
