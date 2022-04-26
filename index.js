@@ -86,7 +86,7 @@ express()
     })
     .get('/apitest', (req, res) => {
         // res.json({message: "Hello from hammerpoint server!"});
-        res.send({message: "Hello from hammerpoint server!"});
+        res.send({message: "!!!Hello from hammerpoint server!"});
     })
     .get('/api/:namereq', function (req, res) {
         // console.log(req.params.nameee);

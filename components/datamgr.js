@@ -14,7 +14,7 @@ module.exports = {
             if (err) {
                 console.log(`Error writing file: ${err}`);
             } else {
-                console.log(`File is written successfully for player ` + playername);
+                console.log(`VVV File is written successfully for player ` + playername);
             }
 
         });
@@ -72,6 +72,7 @@ module.exports = {
             // const results = {'results': (result) ? result.rows : null};
 
             // console.log(results.results);
+            console.log("VVV bridge write to db for " + playername);
             client.release();
 
         } catch (err) {
@@ -92,7 +93,7 @@ module.exports = {
             try {
 
                 for (let i = data.length - 1; i >= 0; i--) {
-                    console.log("i " + i + "  " + data[i].gameStartTimestamp + " ");
+                    // console.log("i " + i + "  " + data[i].gameStartTimestamp + " ");
 
                     const result = await client.query(`
                         INSERT INTO public."gamedata-` + playername + `" (
@@ -112,6 +113,7 @@ module.exports = {
 
             // console.log(results.results);
             client.release();
+            console.log("VVV game data written to db for " + playername);
 
         } catch (err) {
             console.error(err);
@@ -123,7 +125,7 @@ module.exports = {
         // data = JSON.stringify(data);
         //data = data.replace(/'/g, '');
 
-        console.log("get gamedata from db for " + playername);
+
         // console.log(data);
         try {
             const client = await datapool.connect();
@@ -150,6 +152,7 @@ ORDER BY timestamp DESC
 
             // console.log(results.results);
             client.release();
+            console.log("<<<get gamedata from db for " + playername);
             return data;
         } catch (err) {
             console.error(err);
