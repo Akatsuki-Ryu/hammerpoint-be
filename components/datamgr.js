@@ -101,19 +101,41 @@ module.exports = {
             `);
                 }
             } catch (err) {
-                // console.log("user exist ");
-                // console.log(err);
-//                 try {
-//                     const result = await client.query(`
-//                         UPDATE public."gamedata-` + playername + `"
-//                         SET "timestamp" = '` + data[i].gameStartTimestamp + `'::text, timeindex = '1'::text, playername = '` + playername + `'::text, gamedata = '` + JSON.stringify(data[i]) + `::jsonb WHERE
-// "timestamp" = '1';
-//
-//                 `);
-//                 } catch (err) {
-//                     console.log("soemthing go wrong withdata base for " + playername);
-//                     console.log(err);
-//                 }
+                console.log(err);
+            }
+
+            // console.log(result);
+            // const results = {'results': (result) ? result.rows : null};
+
+            // console.log(results.results);
+            client.release();
+
+        } catch (err) {
+            console.error(err);
+        }
+
+    },readfromgamedb: async function (data, playername) {
+
+        //purefy the dataset to remove unusual characters
+        // data = JSON.stringify(data);
+        //data = data.replace(/'/g, '');
+
+
+        // console.log(data);
+        try {
+            const client = await datapool.connect();
+            try {
+
+
+
+                    const result = await client.query(`
+                    SELECT * FROM public."gamedata-`+playername+`"
+ORDER BY gamedata ASC 
+
+            `);
+                data = result;
+
+            } catch (err) {
                 console.log(err);
             }
 
