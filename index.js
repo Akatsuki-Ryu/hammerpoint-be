@@ -62,18 +62,13 @@ express()
         data = await apicall.getbridgedata(req.params.playernamereq);
         res.send(data);
     })
-    .get('/apicallgame/:playernamereq', (req, res) => {
+    .get('/apicallgame/:playernamereq', async (req, res) => {
 
         let data = undefined;
-        data = apicall.getgamedata(req.params.playernamereq);
-        res.send(data);
+        // data = apicall.getgamedata(req.params.playernamereq);
+        data = await readfromgamedb(data,req.params.playernamereq);
+        res.send(data.rows);
     })
-    // .get('/apicallgameremove/:playernamereq', (req, res) => {
-    //
-    //     let data = undefined;
-    //     // data = apicall.callgame(req.params.playernamereq);// dangerous func
-    //     res.send(data);
-    // })
     .get('/callgame', (req, res) => {
 
         let data = "something";
@@ -137,7 +132,7 @@ express()
     .get('/readgamedb', async (req, res) => {
         let data = undefined;
         data = await readfromgamedb(data,"akabox218");
-        res.send(data.rows.gamedata);
+        res.send(data.rows);
     })
     .get('/dbwrite/:uid/:username', async (req, res) => {
         let data=apicall.getbridgedata("terpko");
