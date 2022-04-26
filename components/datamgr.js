@@ -18,8 +18,7 @@ module.exports = {
 
         });
 
-    },
-    readfromfile: function (localpath, data) {
+    }, readfromfile: function (localpath, data) {
         try {
             let contents = fs.readFileSync(localpath, 'utf8');
 
@@ -33,11 +32,12 @@ module.exports = {
             return 1;
 
         }
-    },
-    writetodb: async function (data, playername, playeruid) {
+    }, writetobridgedb: async function (data, playername, playeruid) {
 
+        //purefy the dataset to remove unusual characters
         data = JSON.stringify(data);
         data = data.replace(/'/g, '');
+
         // console.log(data);
         try {
             const client = await datapool.connect();
@@ -47,23 +47,70 @@ module.exports = {
                     VALUES ('` + playeruid + `'::text, '` + playername + `'::text, '` + data + `'::jsonb)
                 returning uid;
 
-
-
-
             `);
             } catch (err) {
-                console.log("user exist ");
+                // console.log("user exist ");
                 // console.log(err);
                 try {
                     const result = await client.query(`
-                    UPDATE public.bridgedata
-                    SET username = '` + playername + `'::text, 
+                        UPDATE public.bridgedata
+                        SET username = '` + playername + `'::text, 
                     objdata = '` + data + `'::jsonb
                     WHERE
-                        uid = '`+playeruid+`'::text;
+                        uid = '` + playeruid + `'::text;
 
                 `);
-                }catch (err) {
+                } catch (err) {
+                    console.log("soemthing go wrong withdata base for " + playername);
+                    console.log(err);
+                }
+
+            }
+
+            // console.log(result);
+            // const results = {'results': (result) ? result.rows : null};
+
+            // console.log(results.results);
+            client.release();
+
+        } catch (err) {
+            console.error(err);
+        }
+
+    },
+    writetogamedb: async function (data, playername) {
+
+        //purefy the dataset to remove unusual characters
+        // data = JSON.stringify(data);
+        //data = data.replace(/'/g, '');
+
+
+        // console.log(data);
+        try {
+            const client = await datapool.connect();
+            try {
+
+                for (i = data.length - 1; i >= 0; i--) {
+
+                    const result = await client.query(`
+                        INSERT INTO public."gamedata-` + playername + `" (
+"timestamp", timeindex, playername, gamedata) VALUES (
+'` + data[i].gameStartTimestamp + `'::text, '1'::text, '` + playername + `'::text, '` + JSON.stringify(data[i]) + `'::jsonb)
+ returning "timestamp";
+
+            `);
+                }
+            } catch (err) {
+                // console.log("user exist ");
+                // console.log(err);
+                try {
+                    const result = await client.query(`
+                        UPDATE public."gamedata-\` + playername + \`"
+                        SET "timestamp" = '` + data[i].gameStartTimestamp + `'::text, timeindex = '1'::text, playername = '` + playername + `'::text, gamedata = '` + JSON.stringify(data[i]) + `::jsonb WHERE
+"timestamp" = '1';
+
+                `);
+                } catch (err) {
                     console.log("soemthing go wrong withdata base for " + playername);
                     console.log(err);
                 }

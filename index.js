@@ -73,10 +73,10 @@ express()
     //     // data = apicall.callgame(req.params.playernamereq);// dangerous func
     //     res.send(data);
     // })
-    .get('/callserverstatus', (req, res) => {
+    .get('/callgame', (req, res) => {
 
         let data = "something";
-        data = apicall.callserverstatus();
+        data = apicall.callgame("akabox218");
         // console.log(data);
         res.send(data);
 
@@ -120,10 +120,58 @@ express()
     .get('/db', async (req, res) => {
         try {
             const client = await pool.connect();
-            const result = await client.query('SELECT * FROM test_table');
+            const result = await client.query('SELECT * FROM bridgedata');
+            // console.log(result);
             const results = {'results': (result) ? result.rows : null};
-            res.render('pages/db', results);
+            console.log(results);
+            // res.render('pages/db', results);
+            res.json(results.results[0].objdata);
             client.release();
+
+        } catch (err) {
+            console.error(err);
+            res.send("Error " + err);
+        }
+    })
+    .get('/dbwrite/:uid/:username', async (req, res) => {
+        let data=apicall.getbridgedata("terpko");
+        data = JSON.parse(data);
+        console.log(data);
+
+        try {
+            const client = await pool.connect();
+            try {
+                const result = await client.query(`
+                    INSERT INTO public.bridgedata (uid, username, objdata)
+                    VALUES ('` + req.params.uid + `'::text, '`+req.params.username+`'::text, '`+JSON.stringify(data.realtime)+`'::jsonb)
+                returning uid;
+
+
+
+
+            `);
+            } catch (err) {
+                console.log("this is the catch");
+                // console.log(err);
+                const result = await client.query(`
+                    UPDATE public.bridgedata
+                    SET username = '`+req.params.username+`'::text,
+                           objdata = '` + JSON.stringify(data.global.badges) + `'::jsonb
+                    WHERE
+                        uid = '`+req.params.uid+`';
+
+                `);
+            }
+
+            // console.log(result);
+            // const results = {'results': (result) ? result.rows : null};
+
+            // console.log(results.results);
+            // res.render('pages/db', results);
+            client.release();
+
+            res.send(data.global);
+
         } catch (err) {
             console.error(err);
             res.send("Error " + err);
