@@ -80,8 +80,9 @@ module.exports = {
     }, writetogamedb: async function (data, playername) {
 
         //purefy the dataset to remove unusual characters
-        // data = JSON.stringify(data);
-        //data = data.replace(/'/g, '');
+        let datapurified = JSON.stringify(data);
+        datapurified = datapurified.replace(/'/g, '');
+        datapurified = JSON.parse(datapurified);
 
 
         // console.log(data);
@@ -94,9 +95,9 @@ module.exports = {
                     const result = await client.query(`
                         INSERT INTO public."gamedata-` + playername + `" (
 "timestamp", timeindex, playername, gamedata) VALUES (
-'` + data[i].gameStartTimestamp + `'::text, '1'::text, '` + playername + `'::text, '` + JSON.stringify(data[i]) + `'::jsonb)
+'` + data[i].gameStartTimestamp + `'::text, '1'::text, '` + playername + `'::text, '` + JSON.stringify(datapurified[i]) + `'::jsonb)
  ON CONFLICT ("timestamp") DO UPDATE 
-                        SET timeindex = '1'::text, playername = '` + playername + `'::text, gamedata = '` + JSON.stringify(data[i]) + `'::jsonb ;
+                        SET timeindex = '1'::text, playername = '` + playername + `'::text, gamedata = '` + JSON.stringify(datapurified[i]) + `'::jsonb ;
 
             `);
                 }
