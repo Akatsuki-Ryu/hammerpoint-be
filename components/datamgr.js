@@ -1,3 +1,4 @@
+require('dotenv').config({path: ".env." + process.env.NODE_ENV}); //load the env file accordingly
 const fs = require("fs");
 const {Pool} = require('pg');
 const datapool = new Pool({
@@ -122,13 +123,12 @@ module.exports = {
         // data = JSON.stringify(data);
         //data = data.replace(/'/g, '');
 
-
+        console.log("get gamedata from db for " + playername);
         // console.log(data);
         try {
             const client = await datapool.connect();
             try {
 
-                console.log("reading database for the game db");
                 const result = await client.query(`
                     SELECT *
                     FROM public."gamedata-` + playername + `"
