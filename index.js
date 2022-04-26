@@ -137,7 +137,7 @@ express()
     .get('/readgamedb', async (req, res) => {
         let data = undefined;
         data = await readfromgamedb(data,"akabox218");
-        res.send(data);
+        res.send(data.rows.gamedata);
     })
     .get('/dbwrite/:uid/:username', async (req, res) => {
         let data=apicall.getbridgedata("terpko");
