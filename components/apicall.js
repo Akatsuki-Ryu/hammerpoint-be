@@ -34,6 +34,7 @@ module.exports = {
             bridgedata = JSON.parse(response.body);
             // console.log("call to write to file" + playername);
             datamanagerobj.writetofile(localbridgepath, bridgedata, playername);
+            datamanagerobj.writetodb( bridgedata, playername,playeruid);
 
             highdemandlistmgr(bridgedata, playername);
 
