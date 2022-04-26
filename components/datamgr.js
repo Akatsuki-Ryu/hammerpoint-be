@@ -95,9 +95,7 @@ module.exports = {
                         INSERT INTO public."gamedata-` + playername + `" (
 "timestamp", timeindex, playername, gamedata) VALUES (
 '` + data[i].gameStartTimestamp + `'::text, '1'::text, '` + playername + `'::text, '` + JSON.stringify(data[i]) + `'::jsonb)
- ON CONFLICT ("timestamp") DO UPDATE public."gamedata-` + playername + `"
-                        SET timeindex = '1'::text, playername = '` + playername + `'::text, gamedata = '` + JSON.stringify(data[i]) + `::jsonb WHERE
-"timestamp" = '` + data[i].gameStartTimestamp + `';
+ ON CONFLICT ("timestamp") ;
 
             `);
                 }
