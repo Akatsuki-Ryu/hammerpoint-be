@@ -50,19 +50,24 @@ module.exports = {
             } catch (err) {
                 console.log("this is the catch if user exists ");
                 // console.log(err);
-                const result = await client.query(`
+                try {
+                    const result = await client.query(`
                     UPDATE public.bridgedata
                     SET username = '`+playername+`'::text
                     WHERE
                         uid = `+playeruid+`;
 
                 `);
+                }catch (e) {
+                    console.log(e);
+                }
+
             }
 
             // console.log(result);
             // const results = {'results': (result) ? result.rows : null};
 
-            console.log(results.results);
+            // console.log(results.results);
             client.release();
 
         } catch (err) {
