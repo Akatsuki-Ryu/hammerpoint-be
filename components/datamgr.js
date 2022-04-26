@@ -37,7 +37,7 @@ module.exports = {
     writetodb: async function (data, playername, playeruid) {
 
         data = JSON.stringify(data);
-        data = String.replace(/'/g, '');
+        data = data.replace(/'/g, '');
         // console.log(data);
         try {
             const client = await datapool.connect();
