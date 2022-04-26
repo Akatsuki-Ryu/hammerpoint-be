@@ -137,13 +137,6 @@ module.exports = {
         }
 
 
-        if (!gamedata) {
-            console.log("calling local game data");
-            readfromfile(localgamepath, databases);
-            return databases;
-        } else {
-            return gamedata;
-        }
 
     }, setplayername: function (playernameval) {
         playername = playernameval;
