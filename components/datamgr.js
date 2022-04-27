@@ -158,6 +158,41 @@ ORDER BY timestamp DESC
             console.error(err);
         }
 
+    }, readfrombridgedb: async function (data, playername) {
+        //purefy the dataset to remove unusual characters
+        // data = JSON.stringify(data);
+        //data = data.replace(/'/g, '');
+
+
+        // console.log(data);
+        try {
+            const client = await datapool.connect();
+            try {
+
+                const result = await client.query(`
+
+                    SELECT * FROM public.bridgedata
+                    WHERE username = '`+playername+`'
+                    ORDER BY uid ASC
+
+                `);
+                data = result.rows[0].objdata;
+
+            } catch (err) {
+                console.log(err);
+            }
+
+            // console.log(result);
+            // const results = {'results': (result) ? result.rows : null};
+
+            // console.log(results.results);
+            client.release();
+            console.log("<<<get bridgedata from db for " + playername);
+            return data;
+        } catch (err) {
+            console.error(err);
+        }
+
     }
 
 }

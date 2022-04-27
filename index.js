@@ -18,7 +18,7 @@ const {
 } = require("./components/usermanagement");
 const wakeUpDyno = require("./components/keepawake");
 const {getserverstatus} = require("./components/serverinfomgr");
-const {readfromgamedb} = require("./components/datamgr");
+const {readfromgamedb, readfrombridgedb} = require("./components/datamgr");
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL, ssl: {
         rejectUnauthorized: false
@@ -59,7 +59,8 @@ express()
     .get('/getbridgedata/:playernamereq', async (req, res) => {
         // apicall.setplayername(req.params.playernamereq);
         let data = undefined;
-        data = await apicall.getbridgedata(req.params.playernamereq);
+        // data = await apicall.getbridgedata(req.params.playernamereq);
+        data = await readfrombridgedb(data,req.params.playernamereq);
         res.send(data);
     })
     .get('/getgamedata/:playernamereq', async (req, res) => {
