@@ -17,7 +17,7 @@ const {
     getfreehighdemandcredit
 } = require("./components/usermanagement");
 const wakeUpDyno = require("./components/keepawake");
-const {getserverstatus} = require("./components/serverinfomgr");
+const {getserverstatus, getmaprotation} = require("./components/serverinfomgr");
 const {readfromgamedb, readfrombridgedb} = require("./components/datamgr");
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL, ssl: {
@@ -82,6 +82,13 @@ express()
 
         let data = undefined;
         data = getserverstatus();
+        res.send(data);
+
+    })
+    .get('/getmaprotation', (req, res) => {
+
+        let data = undefined;
+        data = getmaprotation();
         res.send(data);
 
     })

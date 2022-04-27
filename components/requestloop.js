@@ -5,7 +5,7 @@ const {serverinfo} = require("./serverinfomgr");
 let regularuserindex = 0;
 let highdemanuserindex = 0;
 let looptimeoutcontrol = 0;
-let loopstage = 1; //1 serverstatus , 2 regularlist, 3 highdemand
+let loopstage = 1; //1 serverstatus , 2 map rotation 3 regularlist, 4 highdemand
 
 
 const requestloop = setInterval(function () {
@@ -30,8 +30,9 @@ const requestloop = setInterval(function () {
 
 
     if (loopstage === 1) {
+
         //check serverstatus
-        console.log("call server status-------------------- ");
+        console.log("^^^ call server status-------------------- ");
         if (process.env.ENVVAL === "prod") {
             apicall.callserverstatus();
         }
@@ -39,13 +40,21 @@ const requestloop = setInterval(function () {
 
         //go to next stage
         loopstage = 2;
-
     } else if (loopstage === 2) {
+        console.log("^^^ call map rotation -------------------- ");
+        if (process.env.ENVVAL === "prod") {
+            apicall.callmaprotation();
+        }
+
+        //go to next stage
+        loopstage = 3;
+
+    } else if (loopstage === 3) {
 
 //run the request for player
 //         console.log("test request for " + usermanagementobj.playerlist[userindex].playername);
         if (looptimeoutcontrol % 2||1) {
-            console.log(" call bridge ---------------------regualr " + usermanagementobj.playerlist[regularuserindex].playername);
+            console.log("^^^ call bridge ---------------------regualr " + usermanagementobj.playerlist[regularuserindex].playername);
             if (process.env.ENVVAL === "prod") {
                 apicall.callbridge(usermanagementobj.playerlist[regularuserindex].playername);
             }
@@ -64,21 +73,21 @@ const requestloop = setInterval(function () {
         }
 
         if (regularuserindex === usermanagementobj.playerlist.length) {
-            loopstage = 3;
+            loopstage = 4;
             regularuserindex = 0;
             console.log("listening ...");
         }
-    } else if (loopstage === 3) {
+    } else if (loopstage === 4) {
         if (usermanagementobj.highdemandlist.length !== 0) {
             //run high demand quest
             if (usermanagementobj.highdemandlist[highdemanuserindex].needcallgame === 1) {
-                console.log("  call game =====================highdemand " + usermanagementobj.highdemandlist[highdemanuserindex].playername);
+                console.log("^^^  call game =====================highdemand " + usermanagementobj.highdemandlist[highdemanuserindex].playername);
                 if (process.env.ENVVAL === "prod")
                     apicall.callgame(usermanagementobj.highdemandlist[highdemanuserindex].playername);
 
                 usermanagementobj.highdemandlist[highdemanuserindex].needcallgame = 0;
             } else {
-                console.log("  call bridge====================highdemand " + usermanagementobj.highdemandlist[highdemanuserindex].playername);
+                console.log("^^^  call bridge====================highdemand " + usermanagementobj.highdemandlist[highdemanuserindex].playername);
                 if (process.env.ENVVAL === "prod")
                     apicall.callbridge(usermanagementobj.highdemandlist[highdemanuserindex].playername);
 

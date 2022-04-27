@@ -3,6 +3,7 @@ let databases = undefined;
 let bridgedata = undefined;
 let gamedata = undefined;
 let serverdata = undefined;
+let mapdata = undefined;
 const localbridgepath = "./public/bridgedata";
 const localgamepath = "./public/gamedata";
 
@@ -14,7 +15,7 @@ let playername = "";
 const request = require('request');
 const {readfromfile} = require("./datamgr");
 const {getplayeruid, highdemandlistmgr} = require("./usermanagement");
-const {updateserverinfotimestamp, localserverpath} = require("./serverinfomgr");
+const {updateserverinfotimestamp, localserverpath, localmappath} = require("./serverinfomgr");
 
 
 module.exports = {
@@ -70,7 +71,7 @@ module.exports = {
         return "manually remote call /game ";
     }, callserverstatus: function () {
         // func2 impl
-        console.log("call serverstatus=========================");
+        // console.log("call serverstatus=========================");
         // let playeruid = getplayeruid(playername);
 
         let optionsserver = {
@@ -87,6 +88,26 @@ module.exports = {
             updateserverinfotimestamp();
         });
         return "call remote server status  ";
+
+    },callmaprotation: function () {
+        // func2 impl
+        // console.log("call map rotation=========================");
+        // let playeruid = getplayeruid(playername);
+
+        let optionsmap = {
+            'method': 'GET',
+            'url': 'https://api.mozambiquehe.re/maprotation?auth=CrJTdFiQ8bFKtEHhIP5z',
+            'headers': {}
+        };
+        // console.log(optionsgame);//the request
+        request(optionsmap, function (error, response) {
+            if (error) throw new Error(error);
+            // console.log(response.body);
+            mapdata = JSON.parse(response.body);
+            datamanagerobj.writetofile(localmappath, mapdata);
+
+        });
+        return "call map rotations  ";
 
     }
     , readjson: function (localpath) {
