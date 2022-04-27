@@ -86,7 +86,7 @@ module.exports = {
             datamanagerobj.writetofile(localserverpath, serverdata);
             updateserverinfotimestamp();
         });
-        return "call remove server status  ";
+        return "call remote server status  ";
 
     }
     , readjson: function (localpath) {
