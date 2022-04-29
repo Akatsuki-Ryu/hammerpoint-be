@@ -113,7 +113,7 @@ const requestloop = setInterval(function () {
     looptimeoutcontrol = looptimeoutcontrol + 1;
     // console.log(looptimeoutcontrol);
 
-}, 5 * 1000); //6 sec as one unit
+}, 10 * 1000); //6 sec as one unit
 
 //for testing
 function paraswitch() {
