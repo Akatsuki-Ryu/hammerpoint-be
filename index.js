@@ -18,7 +18,7 @@ const {
 } = require("./components/usermanagement");
 const wakeUpDyno = require("./components/keepawake");
 const {getserverstatus, getmaprotation} = require("./components/serverinfomgr");
-const {readfromgamedb, readfrombridgedb} = require("./components/datamgr");
+const {readfromgamedb, readfrombridgedb, readfromplayerlistdb} = require("./components/datamgr");
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL, ssl: {
         rejectUnauthorized: false
