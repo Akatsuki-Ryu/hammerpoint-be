@@ -190,7 +190,7 @@ function gethighdemandlist() {
 module.exports = {
     playerlist,
     highdemandlist,
-    getplayernames,
+    getplayerlist,
     getplayeruid,
     highdemandlistmgr,
     gethighdemandlist,
