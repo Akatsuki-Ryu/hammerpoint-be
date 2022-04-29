@@ -144,6 +144,7 @@ function highdemandlistmgr(bridgedata, playername) {
             }
 
             rta[0].highrequesttimestamp = timestampnow;//timestamp of calling highdemand
+            rta[0].highrequestlist = 1;//highdemand list flag
 
 
             highdemandlist.push(rta[0]);
@@ -169,6 +170,7 @@ function highdemandlistmgr(bridgedata, playername) {
     } else if (bridgedata.realtime.isOnline === 0) { //if offline , remove from highdemand list
         rta[0].online = 0;
         rta[0].ingame = 0;
+        rta[0].highrequestlist = 0;//highdemand list flag
         let index = highdemandlist.findIndex(it => it.playername === playername);
         if (index > -1) {
             highdemandlist.splice(index, 1);
