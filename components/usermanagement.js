@@ -2,15 +2,68 @@ const {writetofile, readfromfile} = require("./datamgr");
 const {callbridge} = require("./apicall");
 
 let playerlist = [
-    {profilename: "akabox", "profilephoto": "https://cdn.discordapp.com/avatars/215068545552351250/5a600bbca2331678b276125998c16ecc.png?size=1024",playername: "akabox218", uid: "1007820601979", ingame: 0,needcallgame:0,highrequesttimestamp:0},
-    {profilename: "terpko", "profilephoto": "https://cdn.discordapp.com/avatars/171358872684986368/cc87dcbae8d37e8b5aed2e8da34d4e71.png?size=1024",playername: "terpko", uid: "2297370779", ingame: 0,needcallgame:0,highrequesttimestamp:0},
-    {profilename: "hakipi", "profilephoto": "https://cdn.discordapp.com/avatars/284391184393306112/a390ffac93ac94f7a91fbdea0057cc1e.png?size=1024",playername: "hakipi", uid: "2545398846", ingame: 0,needcallgame:0,highrequesttimestamp:0},
-    {profilename: "GT", "profilephoto": "https://cdn.discordapp.com/avatars/127868875810406400/ba92a07ff12d732b24c9d7c57478b621.png?size=1024",playername: "TheGTRacer97", uid: "2299827182", ingame: 0,needcallgame:0,highrequesttimestamp:0},
-    {profilename: "serveri","profilephoto": "https://cdn.discordapp.com/avatars/222299113713041408/847fbea14b00f3a87385fd7912313948.png?size=1024",playername: "The9axel5", uid: "2298814335", ingame: 0,needcallgame:0,highrequesttimestamp:0},
-    {profilename: "Maidaki","profilephoto": "https://cdn.discordapp.com/avatars/251744309735456768/d5122ec107ac109880460b5252c454e6.png?size=1024",playername: "Lundaki", uid: "2381075935", ingame: 0,needcallgame:0,highrequesttimestamp:0}
+    {
+        profilename: "akabox",
+        "profilephoto": "https://cdn.discordapp.com/avatars/215068545552351250/5a600bbca2331678b276125998c16ecc.png?size=1024",
+        playername: "akabox218",
+        uid: "1007820601979",
+        online: 0,
+        ingame: 0,
+        needcallgame: 0,
+        highrequesttimestamp: 0
+    },
+    {
+        profilename: "terpko",
+        "profilephoto": "https://cdn.discordapp.com/avatars/171358872684986368/cc87dcbae8d37e8b5aed2e8da34d4e71.png?size=1024",
+        playername: "terpko",
+        uid: "2297370779",
+        online: 0,
+        ingame: 0,
+        needcallgame: 0,
+        highrequesttimestamp: 0
+    },
+    {
+        profilename: "hakipi",
+        "profilephoto": "https://cdn.discordapp.com/avatars/284391184393306112/a390ffac93ac94f7a91fbdea0057cc1e.png?size=1024",
+        playername: "hakipi",
+        uid: "2545398846",
+        online: 0,
+        ingame: 0,
+        needcallgame: 0,
+        highrequesttimestamp: 0
+    },
+    {
+        profilename: "GT",
+        "profilephoto": "https://cdn.discordapp.com/avatars/127868875810406400/ba92a07ff12d732b24c9d7c57478b621.png?size=1024",
+        playername: "TheGTRacer97",
+        uid: "2299827182",
+        online: 0,
+        ingame: 0,
+        needcallgame: 0,
+        highrequesttimestamp: 0
+    },
+    {
+        profilename: "serveri",
+        "profilephoto": "https://cdn.discordapp.com/avatars/222299113713041408/847fbea14b00f3a87385fd7912313948.png?size=1024",
+        playername: "The9axel5",
+        uid: "2298814335",
+        online: 0,
+        ingame: 0,
+        needcallgame: 0,
+        highrequesttimestamp: 0
+    },
+    {
+        profilename: "Maidaki",
+        "profilephoto": "https://cdn.discordapp.com/avatars/251744309735456768/d5122ec107ac109880460b5252c454e6.png?size=1024",
+        playername: "Lundaki",
+        uid: "2381075935",
+        online: 0,
+        ingame: 0,
+        needcallgame: 0,
+        highrequesttimestamp: 0
+    }
 
 ];
-
 
 
 let highdemandlist = [];
@@ -33,7 +86,7 @@ playerlistinit();
 
 // writetofile(userdatapath, userlist);
 
-function getplayernames() {
+function getplayerlist() {
     if (readfromfile(playerlistdatapath + "-undefined.json", playerlist) === 1) {
         playerlistinit();
         return {err: "fail to get player list, please try again"};
@@ -54,7 +107,7 @@ function getplayeruid(playername) {
 //todo we can get the uid from requesting
 
 
-  let freehighdemandcredit = -1;
+let freehighdemandcredit = -1;
 
 function getfreehighdemandcredit() {
 
@@ -66,22 +119,23 @@ function highdemandlistmgr(bridgedata, playername) {
     let timestampnow = new Date();
     timestampnow = Date.now();
     for (let i = 0; i < playerlist.length; i++) {
-        if(timestampnow - playerlist[i].highrequesttimestamp < 60 * 60 * 1000)
-        {
+        if (timestampnow - playerlist[i].highrequesttimestamp < 60 * 60 * 1000) {
             freehighdemandcredit--;
-            if (freehighdemandcredit <0) {
+            if (freehighdemandcredit < 0) {
                 freehighdemandcredit = 0; //restrict the credit max to 5
             }
         }
 
     }
     console.log("free credit = " + freehighdemandcredit);
+    let rta = playerlist.filter(it => it.playername === playername);
+    let ref = highdemandlist.filter(it => it.playername === playername);
 
     if (bridgedata.realtime.isOnline === 1) {// if online , add to highdemand list
-        let rta = playerlist.filter(it => it.playername === playername);
-        let ref = highdemandlist.filter(it => it.playername === playername);
+
+        rta[0].online = 1;
         if (ref.length === 0) {//never added to the high demand list
-            if (freehighdemandcredit===0) {
+            if (freehighdemandcredit === 0) {
                 console.log("highdemand queue full , not adding this player");
                 return 0;
             }
@@ -89,7 +143,7 @@ function highdemandlistmgr(bridgedata, playername) {
                 rta[0].ingame = 1;
             }
 
-                rta[0].highrequesttimestamp = timestampnow;//timestamp of calling highdemand
+            rta[0].highrequesttimestamp = timestampnow;//timestamp of calling highdemand
 
 
             highdemandlist.push(rta[0]);
@@ -113,6 +167,8 @@ function highdemandlistmgr(bridgedata, playername) {
 
 
     } else if (bridgedata.realtime.isOnline === 0) { //if offline , remove from highdemand list
+        rta[0].online = 0;
+        rta[0].ingame = 0;
         let index = highdemandlist.findIndex(it => it.playername === playername);
         if (index > -1) {
             highdemandlist.splice(index, 1);
@@ -131,4 +187,12 @@ function gethighdemandlist() {
 
 }
 
-module.exports = {playerlist, highdemandlist, getplayernames, getplayeruid, highdemandlistmgr, gethighdemandlist,getfreehighdemandcredit};
+module.exports = {
+    playerlist,
+    highdemandlist,
+    getplayernames,
+    getplayeruid,
+    highdemandlistmgr,
+    gethighdemandlist,
+    getfreehighdemandcredit
+};
