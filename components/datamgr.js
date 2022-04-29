@@ -159,6 +159,50 @@ ORDER BY timestamp DESC
             console.error(err);
         }
 
+    }, readfromgamedb24hours: async function (data) {
+        let timestampnow = new Date();
+        timestampnow = Date.now();
+        const oneday = 1000 * 60 * 60 * 24;
+
+        let gamedataarray = [];
+        //purefy the dataset to remove unusual characters
+        // data = JSON.stringify(data);
+        //data = data.replace(/'/g, '');
+
+
+        // console.log(data);
+        try {
+            const client = await datapool.connect();
+            try {
+
+                const result = await client.query(`
+                    SELECT *
+                    FROM public."gamedata-master"
+                    WHERE timestamp >'` + (timestampnow - oneday) / 1000 + `'
+ORDER BY "timestamp" DESC 
+
+            `);
+                for (let i = 0; i < result.rows.length; i++) {
+                    gamedataarray.push(result.rows[i].gamedata);
+                    // console.log(result.rows[i].gamedata);
+                }
+                data = gamedataarray;
+
+            } catch (err) {
+                console.log(err);
+            }
+
+            // console.log(result);
+            // const results = {'results': (result) ? result.rows : null};
+
+            // console.log(results.results);
+            client.release();
+            console.log("<<<get gamedata from db for last 24 hours"  );
+            return data;
+        } catch (err) {
+            console.error(err);
+        }
+
     }, readfrombridgedb: async function (data, playername) {
         //purefy the dataset to remove unusual characters
         // data = JSON.stringify(data);
@@ -225,7 +269,7 @@ ORDER BY timestamp DESC
 
                     `);
                 } catch (err) {
-                    console.log("soemthing go wrong withdata base for playerlist" );
+                    console.log("soemthing go wrong withdata base for playerlist");
                     console.log(err);
                 }
 
@@ -235,14 +279,14 @@ ORDER BY timestamp DESC
             // const results = {'results': (result) ? result.rows : null};
 
             // console.log(results.results);
-            console.log("VVV playerlist write to db for "  );
+            console.log("VVV playerlist write to db for ");
             client.release();
 
         } catch (err) {
             console.error(err);
         }
 
-    },readfromplayerlistdb: async function (playerlist) {
+    }, readfromplayerlistdb: async function (playerlist) {
 
         //purefy the dataset to remove unusual characters
         // data = JSON.stringify(data);
@@ -254,10 +298,11 @@ ORDER BY timestamp DESC
             const client = await datapool.connect();
             try {
                 const result = await client.query(`
-                  SELECT * FROM public.playerlist
+                    SELECT *
+                    FROM public.playerlist
 
 
-            `);
+                `);
 
                 // console.log(result.rows);
                 playerlist = result.rows;

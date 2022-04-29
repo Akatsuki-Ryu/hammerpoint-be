@@ -18,7 +18,7 @@ const {
 } = require("./components/usermanagement");
 const wakeUpDyno = require("./components/keepawake");
 const {getserverstatus, getmaprotation} = require("./components/serverinfomgr");
-const {readfromgamedb, readfrombridgedb, readfromplayerlistdb} = require("./components/datamgr");
+const {readfromgamedb, readfrombridgedb, readfromplayerlistdb, readfromgamedb24hours} = require("./components/datamgr");
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL, ssl: {
         rejectUnauthorized: false
@@ -68,6 +68,13 @@ express()
         let data = undefined;
         // data = apicall.getgamedata(req.params.playernamereq);
         data = await readfromgamedb(data,req.params.playernamereq);
+        res.send(data);
+    })
+    .get('/getgamedataoneday', async (req, res) => {
+
+        let data = undefined;
+        // data = apicall.getgamedata(req.params.playernamereq);
+        data = await readfromgamedb24hours(data);
         res.send(data);
     })
     .get('/callgame/:playernamereq', (req, res) => {
