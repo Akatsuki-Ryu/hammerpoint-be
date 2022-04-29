@@ -1,0 +1,26 @@
+{
+  "current": {
+    "start": 1651078800,
+    "end": 1651084200,
+    "readableDate_start": "2022-04-27 17:00:00",
+    "readableDate_end": "2022-04-27 18:30:00",
+    "map": "Storm Point",
+    "code": "storm_point_rotation",
+    "DurationInSecs": 5400,
+    "DurationInMinutes": 90,
+    "asset": "https://apexlegendsstatus.com/assets/maps/Storm_Point.png",
+    "remainingSecs": 1376,
+    "remainingMins": 23,
+    "remainingTimer": "00:22:56"
+  },
+  "next": {
+    "start": 1651084200,
+    "end": 1651087800,
+    "readableDate_start": "2022-04-27 18:30:00",
+    "readableDate_end": "2022-04-27 19:30:00",
+    "map": "Olympus",
+    "code": "olympus_rotation",
+    "DurationInSecs": 3600,
+    "DurationInMinutes": 60
+  }
+}
