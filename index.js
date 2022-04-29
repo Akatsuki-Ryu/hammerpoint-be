@@ -14,7 +14,7 @@ const {
     getplayernames,
     getplayeruid,
     gethighdemandlist,
-    getfreehighdemandcredit
+    getfreehighdemandcredit, getplayerlist
 } = require("./components/usermanagement");
 const wakeUpDyno = require("./components/keepawake");
 const {getserverstatus, getmaprotation} = require("./components/serverinfomgr");
@@ -104,7 +104,7 @@ express()
     .get('/getplayers', function (req, res) {
         // console.log(req.params.nameee);
         // apicall.getplayername();
-        res.send(getplayernames());
+        res.send(getplayerlist());
     })
     .get('/gethighdemandlist', function (req, res) {
         // console.log(req.params.nameee);
