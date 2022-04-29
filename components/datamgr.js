@@ -39,6 +39,8 @@ module.exports = {
         data = JSON.stringify(data);
         data = data.replace(/'/g, '');
 
+
+
         // console.log(data);
         try {
             const client = await datapool.connect();
@@ -56,7 +58,9 @@ module.exports = {
                     const result = await client.query(`
                         UPDATE public.bridgedata
                         SET username = '` + playername + `'::text, 
-                    objdata = '` + data + `'::jsonb
+                    objdata = '` + data + `'::jsonb,
+                    ingame='` + data.realtime.isInGame + `'::bigint,
+                    online='` + data.realtime.isOnline + `'::bigint
                     WHERE
                         uid = '` + playeruid + `'::text;
 
@@ -171,8 +175,9 @@ ORDER BY timestamp DESC
 
                 const result = await client.query(`
 
-                    SELECT * FROM public.bridgedata
-                    WHERE username = '`+playername+`'
+                    SELECT *
+                    FROM public.bridgedata
+                    WHERE username = '` + playername + `'
                     ORDER BY uid ASC
 
                 `);
