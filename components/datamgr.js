@@ -58,9 +58,7 @@ module.exports = {
                     const result = await client.query(`
                         UPDATE public.bridgedata
                         SET username = '` + playername + `'::text, 
-                    objdata = '` + data + `'::jsonb,
-                    ingame='` + data.realtime.isInGame + `'::bigint,
-                    online='` + data.realtime.isOnline + `'::bigint
+                    objdata = '` + data + `'::jsonb
                     WHERE
                         uid = '` + playeruid + `'::text;
 
