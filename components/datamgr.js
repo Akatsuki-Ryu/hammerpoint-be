@@ -40,7 +40,6 @@ module.exports = {
         data = data.replace(/'/g, '');
 
 
-
         // console.log(data);
         try {
             const client = await datapool.connect();
@@ -192,6 +191,92 @@ ORDER BY timestamp DESC
             client.release();
             console.log("<<<get bridgedata from db for " + playername);
             return data;
+        } catch (err) {
+            console.error(err);
+        }
+
+    }, writetoplayerlistdb: async function (playerlistobj) {
+
+        //purefy the dataset to remove unusual characters
+        // data = JSON.stringify(data);
+        // data = data.replace(/'/g, '');
+
+
+        // console.log(data);
+        try {
+            const client = await datapool.connect();
+            try {
+                const result = await client.query(`
+                    INSERT INTO public.playerlist (uid, playername, profilename, profilephoto, ingame, online,
+                                                   highrequesttimestamp)
+                    VALUES ('` + playerlistobj.uid + `'::text, '` + playerlistobj.playername + `'::text, '` + playerlistobj.profilename + `'::text, '` + playerlistobj.profilephoto + `'::text, '` + playerlistobj.ingame + `'::bigint, '` + playerlistobj.online + `'::bigint, '` + playerlistobj.highrequesttimestamp + `'::text)
+ returning uid;
+
+            `);
+            } catch (err) {
+                // console.log("user exist ");
+                // console.log(err);
+                try {
+                    const result = await client.query(`
+                        UPDATE public.playerlist
+                        SET uid = '` + playerlistobj.uid + `'::text, playername = '` + playerlistobj.playername + `'::text, profilename = '` + playerlistobj.profilename + `'::text, profilephoto = '` + playerlistobj.profilephoto + `'::text, ingame = '` + playerlistobj.ingame + `'::bigint, online = '` + playerlistobj.online + `'::bigint, highrequesttimestamp = '` + playerlistobj.highrequesttimestamp + `'::text
+                        WHERE
+                            uid = '` + playerlistobj.uid + `';
+
+                    `);
+                } catch (err) {
+                    console.log("soemthing go wrong withdata base for playerlist" );
+                    console.log(err);
+                }
+
+            }
+
+            // console.log(result);
+            // const results = {'results': (result) ? result.rows : null};
+
+            // console.log(results.results);
+            console.log("VVV playerlist write to db for "  );
+            client.release();
+
+        } catch (err) {
+            console.error(err);
+        }
+
+    },readfromplayerlistdb: async function (playerlist) {
+
+        //purefy the dataset to remove unusual characters
+        // data = JSON.stringify(data);
+        // data = data.replace(/'/g, '');
+
+
+        // console.log(data);
+        try {
+            const client = await datapool.connect();
+            try {
+                const result = await client.query(`
+                  SELECT * FROM public.playerlist
+
+
+            `);
+
+                // console.log(result.rows);
+                playerlist = result.rows;
+                return result.rows;
+
+            } catch (err) {
+                // console.log("user exist ");
+                // console.log(err);
+                return 1;
+
+            }
+
+            // console.log(result);
+            // const results = {'results': (result) ? result.rows : null};
+
+            // console.log(results.results);
+            console.log("VVV bridge write to db for " + playername);
+            client.release();
+
         } catch (err) {
             console.error(err);
         }

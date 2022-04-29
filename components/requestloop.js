@@ -2,6 +2,7 @@ let requesttype = -1;
 const apicall = require("./apicall");
 const usermanagementobj = require("./usermanagement")
 const {serverinfo} = require("./serverinfomgr");
+const {readfromplayerlistdb} = require("./datamgr");
 let regularuserindex = 0;
 let highdemanuserindex = 0;
 let looptimeoutcontrol = 0;
@@ -31,6 +32,11 @@ const requestloop = setInterval(function () {
 
     if (loopstage === 1) {
 
+        //download the playerlist from db
+        console.log("read playerlist from db");
+        readfromplayerlistdb(usermanagementobj.playerlist);
+
+
         //check serverstatus
         console.log("^^^ call server status-------------------- ");
         if (process.env.ENVVAL === "prod") {
@@ -54,6 +60,7 @@ const requestloop = setInterval(function () {
 //run the request for player
 //         console.log("test request for " + usermanagementobj.playerlist[userindex].playername);
         if (looptimeoutcontrol % 2||1) {
+
             console.log("^^^ call bridge ---------------------regualr " + usermanagementobj.playerlist[regularuserindex].playername);
             if (process.env.ENVVAL === "prod") {
                 apicall.callbridge(usermanagementobj.playerlist[regularuserindex].playername);

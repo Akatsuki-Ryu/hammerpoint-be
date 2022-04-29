@@ -1,5 +1,4 @@
-const {writetofile, readfromfile} = require("./datamgr");
-const {callbridge} = require("./apicall");
+const {writetofile, readfromfile, writetoplayerlistdb} = require("./datamgr");
 
 let playerlist = [{
     profilename: "akabox",
@@ -78,7 +77,12 @@ function playerlistinit() {
         writetofile(playerlistdatapath, playerlist);
         console.log("written playerlist =====================");
         playerlistinitflag = 1;
+
+        for (let i = 0; i < playerlist.length; i++) {
+            writetoplayerlistdb(playerlist[i]);
+        }
     }
+    
 
 }
 
@@ -131,7 +135,8 @@ function highdemandlistmgr(bridgedata, playername) {
     let rta = playerlist.filter(it => it.playername === playername);
     let ref = highdemandlist.filter(it => it.playername === playername);
 
-    if (bridgedata.realtime.isOnline === 1) {// if online , add to highdemand list
+    if (bridgedata.realtime.isOnline === 1) {
+        // if online , add to highdemand list
 
         rta[0].online = 1;
         if (ref.length === 0) {//never added to the high demand list
@@ -149,6 +154,10 @@ function highdemandlistmgr(bridgedata, playername) {
 
             highdemandlist.push(rta[0]);
             console.log("add to the high demand list   " + playername);
+
+            //write to db with rta[0]
+            writetoplayerlistdb(rta[0]);
+
             // console.log(highdemandlist);
         } else { //had been in high demand list
             rta[0].highrequesttimestamp = timestampnow;//timestamp of calling highdemand
@@ -163,11 +172,14 @@ function highdemandlistmgr(bridgedata, playername) {
 
 
             }
+            //write to db rta[0]
+            writetoplayerlistdb(rta[0]);
 
         }
 
 
-    } else if (bridgedata.realtime.isOnline === 0) { //if offline , remove from highdemand list
+    } else if (bridgedata.realtime.isOnline === 0) {
+        //if offline , remove from highdemand list
         rta[0].online = 0;
         rta[0].ingame = 0;
         rta[0].highrequestlist = 0;//highdemand list flag
@@ -176,7 +188,8 @@ function highdemandlistmgr(bridgedata, playername) {
             highdemandlist.splice(index, 1);
             console.log("removed from the high demand list   " + playername);
         }
-
+//write to db rta[0]
+        writetoplayerlistdb(rta[0]);
 
     }
 
