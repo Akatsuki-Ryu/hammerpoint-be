@@ -94,9 +94,9 @@ const requestloop = setInterval(function () {
 
                 usermanagementobj.highdemandlist[highdemanuserindex].needcallgame = 0;
             } else {
-                console.log("^^^  call bridge====================highdemand " + usermanagementobj.highdemandlist[highdemanuserindex].playername);
-                if (process.env.ENVVAL === "prod")
-                    apicall.callbridge(usermanagementobj.highdemandlist[highdemanuserindex].playername);
+                // console.log("^^^  call bridge====================highdemand " + usermanagementobj.highdemandlist[highdemanuserindex].playername);
+                // if (process.env.ENVVAL === "prod")
+                //     apicall.callbridge(usermanagementobj.highdemandlist[highdemanuserindex].playername);
 
             }
 
