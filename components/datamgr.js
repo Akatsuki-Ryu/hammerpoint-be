@@ -73,7 +73,7 @@ module.exports = {
             // const results = {'results': (result) ? result.rows : null};
 
             // console.log(results.results);
-            console.log("VVV bridge write to db for " + playername);
+            console.log("VVV bridge write to db done for " + playername);
             client.release();
 
         } catch (err) {
@@ -279,7 +279,7 @@ ORDER BY "timestamp" DESC
             // const results = {'results': (result) ? result.rows : null};
 
             // console.log(results.results);
-            console.log("VVV playerlist write to db ");
+            console.log("VVV playerlist written to db done");
             client.release();
 
         } catch (err) {
@@ -305,12 +305,13 @@ ORDER BY "timestamp" DESC
                 `);
 
                 // console.log(result.rows);
+                playerlist = [];
                 playerlist = result.rows;
 
-                console.log("^^^ read player list from db");
+                console.log("^^^ read player list from db execution");
                 client.release();
 
-                return result.rows;
+                return playerlist;
 
             } catch (err) {
                 // console.log("user exist ");
