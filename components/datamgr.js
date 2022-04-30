@@ -252,8 +252,8 @@ ORDER BY "timestamp" DESC
             try {
                 const result = await client.query(`
                     INSERT INTO public.playerlist (uid, playername, profilename, profilephoto, ingame, online,
-                                                   highrequesttimestamp)
-                    VALUES ('` + playerlistobj.uid + `'::text, '` + playerlistobj.playername + `'::text, '` + playerlistobj.profilename + `'::text, '` + playerlistobj.profilephoto + `'::text, '` + playerlistobj.ingame + `'::bigint, '` + playerlistobj.online + `'::bigint, '` + playerlistobj.highrequesttimestamp + `'::text)
+                                                   highrequesttimestamp,highrequestlist)
+                    VALUES ('` + playerlistobj.uid + `'::text, '` + playerlistobj.playername + `'::text, '` + playerlistobj.profilename + `'::text, '` + playerlistobj.profilephoto + `'::text, '` + playerlistobj.ingame + `'::bigint, '` + playerlistobj.online + `'::bigint, '` + playerlistobj.highrequesttimestamp + `'::text,'`+playerlistobj.highrequestlist+`::bigint)
  returning uid;
 
             `);
@@ -263,7 +263,7 @@ ORDER BY "timestamp" DESC
                 try {
                     const result = await client.query(`
                         UPDATE public.playerlist
-                        SET uid = '` + playerlistobj.uid + `'::text, playername = '` + playerlistobj.playername + `'::text, profilename = '` + playerlistobj.profilename + `'::text, profilephoto = '` + playerlistobj.profilephoto + `'::text, ingame = '` + playerlistobj.ingame + `'::bigint, online = '` + playerlistobj.online + `'::bigint, highrequesttimestamp = '` + playerlistobj.highrequesttimestamp + `'::text
+                        SET uid = '` + playerlistobj.uid + `'::text, playername = '` + playerlistobj.playername + `'::text, profilename = '` + playerlistobj.profilename + `'::text, profilephoto = '` + playerlistobj.profilephoto + `'::text, ingame = '` + playerlistobj.ingame + `'::bigint, online = '` + playerlistobj.online + `'::bigint, highrequesttimestamp = '` + playerlistobj.highrequesttimestamp + `'::text,highrequestlist='`+playerlistobj.highrequestlist+`'
                         WHERE
                             uid = '` + playerlistobj.uid + `';
 
