@@ -197,7 +197,7 @@ ORDER BY "timestamp" DESC
 
             // console.log(results.results);
             client.release();
-            console.log("<<<get gamedata from db for last 24 hours"  );
+            console.log("<<<get gamedata from db for last 24 hours");
             return data;
         } catch (err) {
             console.error(err);
@@ -269,7 +269,7 @@ ORDER BY "timestamp" DESC
 
                     `);
                 } catch (err) {
-                    console.log("soemthing go wrong withdata base for playerlist");
+                    console.log("soemthing go wrong with data base for playerlist");
                     console.log(err);
                 }
 
@@ -279,7 +279,7 @@ ORDER BY "timestamp" DESC
             // const results = {'results': (result) ? result.rows : null};
 
             // console.log(results.results);
-            console.log("VVV playerlist write to db for ");
+            console.log("VVV playerlist write to db ");
             client.release();
 
         } catch (err) {
@@ -306,6 +306,10 @@ ORDER BY "timestamp" DESC
 
                 // console.log(result.rows);
                 playerlist = result.rows;
+
+                console.log("^^^ read player list from db");
+                client.release();
+
                 return result.rows;
 
             } catch (err) {
@@ -319,8 +323,7 @@ ORDER BY "timestamp" DESC
             // const results = {'results': (result) ? result.rows : null};
 
             // console.log(results.results);
-            console.log("VVV bridge write to db for " + playername);
-            client.release();
+
 
         } catch (err) {
             console.error(err);
