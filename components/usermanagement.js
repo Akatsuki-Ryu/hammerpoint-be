@@ -79,10 +79,10 @@ function playerlistinit() {
         playerlistinitflag = 1;
 
         for (let i = 0; i < playerlist.length; i++) {
-            writetoplayerlistdb(playerlist[i]);
+            // writetoplayerlistdb(playerlist[i]);
         }
     }
-    
+
 
 }
 
