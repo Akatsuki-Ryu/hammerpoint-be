@@ -111,7 +111,7 @@ const requestloop = setInterval(async function () {
     looptimeoutcontrol = looptimeoutcontrol + 1;
     // console.log(looptimeoutcontrol);
 
-}, 6 * 1000); //6 sec as one unit
+}, 5 * 1000); //6 sec as one unit
 
 
 //io to other modules
