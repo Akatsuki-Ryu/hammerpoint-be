@@ -1,6 +1,7 @@
 const {writetofile, readfromfile, writetoplayerlistdb} = require("./datamgr");
 
-let playerlist = [{
+let playerlist = [];
+let playerlist_mock = [{
     profilename: "akabox",
     "profilephoto": "https://cdn.discordapp.com/avatars/215068545552351250/5a600bbca2331678b276125998c16ecc.png?size=1024",
     playername: "akabox218",
@@ -102,6 +103,10 @@ function getplayerlist() {
 
 }
 
+function setplayerlist(playerlistinput) {
+    playerlist = playerlistinput;
+}
+
 function getplayeruid(playername) {
     let rta = playerlist.filter(it => it.playername === playername);
     return rta[0].uid;
@@ -156,6 +161,7 @@ function highdemandlistmgr(bridgedata, playername) {
             console.log("add to the high demand list   " + playername);
 
             //write to db with rta[0]
+            console.log("VVV write to playerlist db");
             writetoplayerlistdb(rta[0]);
 
             // console.log(highdemandlist);
@@ -173,6 +179,7 @@ function highdemandlistmgr(bridgedata, playername) {
 
             }
             //write to db rta[0]
+            console.log("VVV write to playerlist db");
             writetoplayerlistdb(rta[0]);
 
         }
@@ -189,6 +196,8 @@ function highdemandlistmgr(bridgedata, playername) {
             console.log("removed from the high demand list   " + playername);
         }
 //write to db rta[0]
+        console.log("VVV write to playerlist db");
+        console.log(rta[0].highrequesttimestamp);
         writetoplayerlistdb(rta[0]);
 
     }
@@ -209,5 +218,6 @@ module.exports = {
     getplayeruid,
     highdemandlistmgr,
     gethighdemandlist,
-    getfreehighdemandcredit
+    getfreehighdemandcredit,
+    setplayerlist
 };
