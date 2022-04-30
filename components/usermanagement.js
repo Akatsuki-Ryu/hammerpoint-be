@@ -97,7 +97,7 @@ function getplayerlist() {
 
     }
     readfromfile(playerlistdatapath + "-undefined.json", playerlist);
-    console.log("get players");
+    console.log("<<<get players");
     return playerlist;
 
 }
