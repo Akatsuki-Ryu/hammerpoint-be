@@ -92,9 +92,9 @@ const requestloop = setInterval(async function () {
 
                 usermanagementobj.highdemandlist[highdemanuserindex].needcallgame = 0;
             } else {
-                // console.log(">>>  call bridge====================highdemand " + usermanagementobj.highdemandlist[highdemanuserindex].playername);
-                // if (process.env.ENVVAL === "prod")
-                //     apicall.callbridge(usermanagementobj.highdemandlist[highdemanuserindex].playername);
+                console.log(">>>  call bridge====================highdemand " + usermanagementobj.highdemandlist[highdemanuserindex].playername);
+                if (process.env.ENVVAL === "prod")
+                    apicall.callbridge(usermanagementobj.highdemandlist[highdemanuserindex].playername);
 
             }
 
@@ -111,7 +111,7 @@ const requestloop = setInterval(async function () {
     looptimeoutcontrol = looptimeoutcontrol + 1;
     // console.log(looptimeoutcontrol);
 
-}, 5 * 1000); //6 sec as one unit
+}, 6 * 1000); //6 sec as one unit
 
 
 //io to other modules
