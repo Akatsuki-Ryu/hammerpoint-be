@@ -9,7 +9,7 @@ let looptimeoutcontrol = 0;
 let loopstage = 1; //1 serverstatus , 2 map rotation 3 regularlist, 4 highdemand
 
 
-const requestloop = setInterval(function () {
+const requestloop = setInterval(async function () {
 
     let timestampnow = new Date();
     timestampnow = Date.now();
@@ -19,9 +19,7 @@ const requestloop = setInterval(function () {
     }
 
 
-
-
-    if (looptimeoutcontrol >  40) { //40 is the breaking time in between before refreshing the playerlist bridge
+    if (looptimeoutcontrol > 40) { //40 is the breaking time in between before refreshing the playerlist bridge
 
         loopstage = 1;
         looptimeoutcontrol = 0;
@@ -33,12 +31,13 @@ const requestloop = setInterval(function () {
     if (loopstage === 1) {
 
         //download the playerlist from db
-        console.log("read playerlist from db");
-        readfromplayerlistdb(usermanagementobj.playerlist);
+        console.log("^^^ read playerlist from db");
+        usermanagementobj.playerlist = await readfromplayerlistdb(usermanagementobj.playerlist);
+        usermanagementobj.setplayerlist(usermanagementobj.playerlist);
 
 
         //check serverstatus
-        console.log("^^^ call server status-------------------- ");
+        console.log(">>> call server status-------------------- ");
         if (process.env.ENVVAL === "prod") {
             apicall.callserverstatus();
         }
@@ -47,7 +46,7 @@ const requestloop = setInterval(function () {
         //go to next stage
         loopstage = 2;
     } else if (loopstage === 2) {
-        console.log("^^^ call map rotation -------------------- ");
+        console.log(">>> call map rotation -------------------- ");
         if (process.env.ENVVAL === "prod") {
             apicall.callmaprotation();
         }
@@ -59,9 +58,9 @@ const requestloop = setInterval(function () {
 
 //run the request for player
 //         console.log("test request for " + usermanagementobj.playerlist[userindex].playername);
-        if (looptimeoutcontrol % 2||1) {
+        if (looptimeoutcontrol % 2 || 1) {
 
-            console.log("^^^ call bridge ---------------------regualr " + usermanagementobj.playerlist[regularuserindex].playername);
+            console.log(">>> call bridge ---------------------regualr " + usermanagementobj.playerlist[regularuserindex].playername);
             if (process.env.ENVVAL === "prod") {
                 apicall.callbridge(usermanagementobj.playerlist[regularuserindex].playername);
             }
@@ -72,9 +71,8 @@ const requestloop = setInterval(function () {
             // if (timestampnow - usermanagementobj.playerlist[regularuserindex].highrequesttimestamp > 60 * 60 * 1000) {
             //     if (process.env.ENVVAL === "prod")
             //         apicall.callgame(usermanagementobj.playerlist[regularuserindex].playername);
-            //     console.log(" call game ---------------------regular " + usermanagementobj.playerlist[regularuserindex].playername);
+            //     console.log(">>> call game ---------------------regular " + usermanagementobj.playerlist[regularuserindex].playername);
             // }
-
 
 
         }
@@ -88,13 +86,13 @@ const requestloop = setInterval(function () {
         if (usermanagementobj.highdemandlist.length !== 0) {
             //run high demand quest
             if (usermanagementobj.highdemandlist[highdemanuserindex].needcallgame === 1) {
-                console.log("^^^  call game =====================highdemand " + usermanagementobj.highdemandlist[highdemanuserindex].playername);
+                console.log(">>>  call game =====================highdemand " + usermanagementobj.highdemandlist[highdemanuserindex].playername);
                 if (process.env.ENVVAL === "prod")
                     apicall.callgame(usermanagementobj.highdemandlist[highdemanuserindex].playername);
 
                 usermanagementobj.highdemandlist[highdemanuserindex].needcallgame = 0;
             } else {
-                // console.log("^^^  call bridge====================highdemand " + usermanagementobj.highdemandlist[highdemanuserindex].playername);
+                // console.log(">>>  call bridge====================highdemand " + usermanagementobj.highdemandlist[highdemanuserindex].playername);
                 // if (process.env.ENVVAL === "prod")
                 //     apicall.callbridge(usermanagementobj.highdemandlist[highdemanuserindex].playername);
 
@@ -115,21 +113,6 @@ const requestloop = setInterval(function () {
 
 }, 10 * 1000); //6 sec as one unit
 
-//for testing
-function paraswitch() {
-    if (requesttype === "game") {
-        requesttype = "bridge";
-
-    } else if (requesttype === "bridge") {
-
-        requesttype = "none";
-
-
-    } else {
-        requesttype = "game";
-    }
-    // module.exports.requesttypeexp = requesttype;
-}
 
 //io to other modules
 function getrequesttype() {
@@ -146,7 +129,6 @@ function setrequesttype(_requesttype) {
 //     paraswitchexp: function paraswitch()
 //
 // }
-module.exports.paraswitchexp = paraswitch;
 module.exports.getrequesttypeexp = getrequesttype;
 module.exports.setrequesttypeexp = setrequesttype;
 
