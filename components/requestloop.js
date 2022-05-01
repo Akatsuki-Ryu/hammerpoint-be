@@ -11,8 +11,6 @@ let loopstage = 1; //1 serverstatus , 2 map rotation 3 regularlist, 4 highdemand
 
 const requestloop = setInterval(async function () {
 
-    let timestampnow = new Date();
-    timestampnow = Date.now();
 
     if (process.env.ENVVAL === "dev") {
         console.log("reqeust loop is running on stage " + loopstage);

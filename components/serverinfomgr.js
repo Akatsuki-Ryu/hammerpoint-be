@@ -16,7 +16,7 @@ function getserverstatus  () {
 }
 
 function updateserverinfotimestamp() {
-    let timestamp = new Date();
+    let timestamp;
     timestamp = Date.now();
     serverinfo[0].servercalltimestamp = timestamp;
 

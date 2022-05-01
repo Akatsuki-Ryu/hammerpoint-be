@@ -1,4 +1,3 @@
-const fs = require('fs');
 let databases = undefined;
 let bridgedata = undefined;
 let gamedata = undefined;
@@ -110,25 +109,8 @@ module.exports = {
         return "call map rotations  ";
 
     }
-    , readjson: function (localpath) {
-        let statuscode = -1;
-        //file handling
-
-
-        try {
-            let contents = fs.readFileSync(localpath, 'utf8');
-
-            databases = contents;
-
-        } catch (err) {
-            // console.error("file doesnt exist========================================== ");
-            return 1;
-            // console.error(err);
-        }
-
-    }, getdatabase: function () {
-        return databases;
-    }, getbridgedata: function (playernameval) {//todo if the user doesnt exist
+    ,
+    getbridgedata: function (playernameval) {//todo if the user doesnt exist
 //load local data first
         if (readfromfile(localbridgepath + "-" + playernameval + ".json", databases) === 1) {
             console.log("=====bridge file not exist for " + playernameval);

@@ -125,7 +125,7 @@ function getfreehighdemandcredit() {
 
 function highdemandlistmgr(bridgedata, playername) {
     freehighdemandcredit = 5;
-    let timestampnow = new Date();
+    let timestampnow;
     timestampnow = Date.now();
     for (let i = 0; i < playerlist.length; i++) {
         if (timestampnow - playerlist[i].highrequesttimestamp < 60 * 60 * 1000) {

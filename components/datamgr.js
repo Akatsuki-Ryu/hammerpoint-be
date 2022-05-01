@@ -21,9 +21,7 @@ module.exports = {
 
     }, readfromfile: function (localpath, data) {
         try {
-            let contents = fs.readFileSync(localpath, 'utf8');
-
-            data = contents;
+            data = fs.readFileSync(localpath, 'utf8');
             // console.log(data);
             return data;
 
@@ -160,7 +158,7 @@ ORDER BY timestamp DESC
         }
 
     }, readfromgamedb24hours: async function (data) {
-        let timestampnow = new Date();
+        let timestampnow;
         timestampnow = Date.now();
         const oneday = 1000 * 60 * 60 * 24;
 

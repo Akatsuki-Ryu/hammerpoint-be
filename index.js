@@ -79,7 +79,7 @@ express()
     })
     .get('/callgame/:playernamereq', (req, res) => {
 
-        let data = "something";
+        let data;
         data = apicall.callgame(req.params.playernamereq);
         // console.log(data);
         res.send(data);
@@ -87,14 +87,14 @@ express()
     })
     .get('/getserverstatus', (req, res) => {
 
-        let data = undefined;
+        let data;
         data = getserverstatus();
         res.send(data);
 
     })
     .get('/getmaprotation', (req, res) => {
 
-        let data = undefined;
+        let data;
         data = getmaprotation();
         res.send(data);
 
