@@ -33,7 +33,7 @@ const requestloop = setInterval(async function () {
         //download the playerlist from db
         console.log("^^^ read playerlist from db");
         usermanagementobj.playerlist = await readfromplayerlistdb(usermanagementobj.playerlist);
-        usermanagementobj.setplayerlist(usermanagementobj.playerlist);
+        usermanagementobj.setplayerlist(usermanagementobj.playerlist);//send the playlist to the source
 
 
         //check serverstatus

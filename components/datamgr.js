@@ -298,9 +298,8 @@ ORDER BY "timestamp" DESC
             const client = await datapool.connect();
             try {
                 const result = await client.query(`
-                    SELECT *
-                    FROM public.playerlist
-
+                    SELECT * FROM public.playerlist
+                    ORDER BY profilename ASC
 
                 `);
 
