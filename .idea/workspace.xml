@@ -3,19 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c9d956cd-fb78-4543-a019-1b7005052159" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/datamgr.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/datamgr.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bridgedata-Lundaki.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/bridgedata-Lundaki.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bridgedata-The9axel5.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/bridgedata-The9axel5.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bridgedata-TheGTRacer97.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/bridgedata-TheGTRacer97.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/bridgedata-akabox218.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/bridgedata-akabox218.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bridgedata-hakipi.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/bridgedata-hakipi.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bridgedata-terpko.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/bridgedata-terpko.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bridgedata.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/bridgedata.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/gamedata-Lundaki.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/gamedata-Lundaki.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/gamedata-akabox218.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/gamedata-akabox218.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/serverdata-undefined.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/serverdata-undefined.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,8 +23,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
@@ -46,15 +40,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MTConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "javascript.nodejs.core.library.configured.version": "18.0.0",
+    "javascript.nodejs.core.library.typings.version": "17.0.30",
+    "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "MTConfigurable"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -74,7 +77,13 @@
       <workItem from="1650882718335" duration="1924000" />
       <workItem from="1650900285826" duration="4055000" />
       <workItem from="1650977383216" duration="589000" />
-      <workItem from="1650980835707" duration="19854000" />
+      <workItem from="1650980835707" duration="26069000" />
+      <workItem from="1651057505416" duration="11224000" />
+      <workItem from="1651104945623" duration="11000" />
+      <workItem from="1651174849746" duration="724000" />
+      <workItem from="1651221870243" duration="6294000" />
+      <workItem from="1651241194905" duration="35428000" />
+      <workItem from="1651363709458" duration="2779000" />
     </task>
     <servers />
   </component>
@@ -91,5 +100,8 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
 </project>
