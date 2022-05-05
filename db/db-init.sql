@@ -8,8 +8,13 @@ CREATE TABLE IF NOT EXISTS public.bridgedata
     uid text COLLATE pg_catalog."default" NOT NULL,
     username text COLLATE pg_catalog."default" NOT NULL,
     objdata json,
+    profilename text COLLATE pg_catalog."default",
+    profilephoto text COLLATE pg_catalog."default",
+    ingame bigint,
+    highrequesttimestamp text COLLATE pg_catalog."default",
+    online bigint,
     CONSTRAINT bridgedata_pkey PRIMARY KEY (uid)
-    );
+);
 
 CREATE TABLE IF NOT EXISTS public."gamedata-Lundaki"
 (
@@ -18,7 +23,7 @@ CREATE TABLE IF NOT EXISTS public."gamedata-Lundaki"
     playername text COLLATE pg_catalog."default",
     gamedata jsonb,
     CONSTRAINT "gamedata-Lundaki_pkey" PRIMARY KEY ("timestamp")
-    );
+);
 
 CREATE TABLE IF NOT EXISTS public."gamedata-The9axel5"
 (
@@ -27,7 +32,7 @@ CREATE TABLE IF NOT EXISTS public."gamedata-The9axel5"
     playername text COLLATE pg_catalog."default",
     gamedata jsonb,
     CONSTRAINT "gamedata-The9axel5_pkey" PRIMARY KEY ("timestamp")
-    );
+);
 
 CREATE TABLE IF NOT EXISTS public."gamedata-TheGTRacer97"
 (
@@ -36,7 +41,7 @@ CREATE TABLE IF NOT EXISTS public."gamedata-TheGTRacer97"
     playername text COLLATE pg_catalog."default",
     gamedata jsonb,
     CONSTRAINT "gamedata-TheGTRacer97_pkey" PRIMARY KEY ("timestamp")
-    );
+);
 
 CREATE TABLE IF NOT EXISTS public."gamedata-akabox218"
 (
@@ -45,7 +50,7 @@ CREATE TABLE IF NOT EXISTS public."gamedata-akabox218"
     playername text COLLATE pg_catalog."default",
     gamedata jsonb,
     CONSTRAINT "gamedata-akabox218_pkey1" PRIMARY KEY ("timestamp")
-    );
+);
 
 CREATE TABLE IF NOT EXISTS public."gamedata-hakipi"
 (
@@ -54,7 +59,7 @@ CREATE TABLE IF NOT EXISTS public."gamedata-hakipi"
     playername text COLLATE pg_catalog."default",
     gamedata jsonb,
     CONSTRAINT "gamedata-hakipi_pkey" PRIMARY KEY ("timestamp")
-    );
+);
 
 CREATE TABLE IF NOT EXISTS public."gamedata-master"
 (
@@ -63,7 +68,7 @@ CREATE TABLE IF NOT EXISTS public."gamedata-master"
     playername text COLLATE pg_catalog."default",
     gamedata jsonb,
     CONSTRAINT "gamedata-akabox218_pkey" PRIMARY KEY ("timestamp")
-    );
+);
 
 CREATE TABLE IF NOT EXISTS public."gamedata-terpko"
 (
@@ -72,5 +77,19 @@ CREATE TABLE IF NOT EXISTS public."gamedata-terpko"
     playername text COLLATE pg_catalog."default",
     gamedata jsonb,
     CONSTRAINT "gamedata-terpko_pkey" PRIMARY KEY ("timestamp")
-    );
+);
+
+CREATE TABLE IF NOT EXISTS public.playerlist
+(
+    uid text COLLATE pg_catalog."default" NOT NULL,
+    playername text COLLATE pg_catalog."default",
+    profilename text COLLATE pg_catalog."default",
+    profilephoto text COLLATE pg_catalog."default",
+    ingame bigint,
+    online bigint,
+    highrequesttimestamp text COLLATE pg_catalog."default",
+    highrequestlist bigint,
+    needcallgame bigint,
+    CONSTRAINT playerlist_pkey PRIMARY KEY (uid)
+);
 END;
