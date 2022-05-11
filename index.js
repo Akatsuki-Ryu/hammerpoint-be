@@ -147,4 +147,6 @@ express()
     .listen(PORT, () => {
         console.log(`Listening on ${PORT}` + "  running on " + process.env.ENVVAL);
         wakeUpDyno(process.env.DYNO_URL);
+        wakeUpDyno(process.env.DYNO_URL_AVC,1);
+
     });
