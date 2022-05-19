@@ -10,7 +10,8 @@ let playerlist_mock = [{
     ingame: 0,
     needcallgame: 0,
     highrequestlist: 0,
-    highrequesttimestamp: 0
+    highrequesttimestamp: 0,
+    archived:0
 }, {
     profilename: "terpko",
     "profilephoto": "https://cdn.discordapp.com/avatars/171358872684986368/cc87dcbae8d37e8b5aed2e8da34d4e71.png?size=1024",
@@ -20,7 +21,8 @@ let playerlist_mock = [{
     ingame: 0,
     needcallgame: 0,
     highrequestlist: 0,
-    highrequesttimestamp: 0
+    highrequesttimestamp: 0,
+    archived:0
 }, {
     profilename: "hakipi",
     "profilephoto": "https://cdn.discordapp.com/avatars/284391184393306112/a390ffac93ac94f7a91fbdea0057cc1e.png?size=1024",
@@ -30,7 +32,8 @@ let playerlist_mock = [{
     ingame: 0,
     needcallgame: 0,
     highrequestlist: 0,
-    highrequesttimestamp: 0
+    highrequesttimestamp: 0,
+    archived:0
 }, {
     profilename: "GT",
     "profilephoto": "https://cdn.discordapp.com/avatars/127868875810406400/ba92a07ff12d732b24c9d7c57478b621.png?size=1024",
@@ -40,7 +43,8 @@ let playerlist_mock = [{
     ingame: 0,
     needcallgame: 0,
     highrequestlist: 0,
-    highrequesttimestamp: 0
+    highrequesttimestamp: 0,
+    archived:0
 }, {
     profilename: "serveri",
     "profilephoto": "https://cdn.discordapp.com/avatars/222299113713041408/847fbea14b00f3a87385fd7912313948.png?size=1024",
@@ -50,7 +54,8 @@ let playerlist_mock = [{
     ingame: 0,
     needcallgame: 0,
     highrequestlist: 0,
-    highrequesttimestamp: 0
+    highrequesttimestamp: 0,
+    archived:0
 }, {
     profilename: "Maidaki",
     "profilephoto": "https://cdn.discordapp.com/avatars/251744309735456768/d5122ec107ac109880460b5252c454e6.png?size=1024",
@@ -60,7 +65,8 @@ let playerlist_mock = [{
     ingame: 0,
     needcallgame: 0,
     highrequestlist: 0,
-    highrequesttimestamp: 0
+    highrequesttimestamp: 0,
+    archived:0
 }
 
 ];

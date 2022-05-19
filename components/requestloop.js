@@ -58,12 +58,15 @@ const requestloop = setInterval(async function () {
 //         console.log("test request for " + usermanagementobj.playerlist[userindex].playername);
         if (looptimeoutcontrol % 2 || 1) {
 
-            console.log(">>> call bridge ---------------------regualr " + usermanagementobj.playerlist[regularuserindex].playername);
-            if (process.env.ENVVAL === "prod") {
-                apicall.callbridge(usermanagementobj.playerlist[regularuserindex].playername);
-            }
+            if (usermanagementobj.playerlist[regularuserindex].archived !== 1) {
 
-            regularuserindex = regularuserindex + 1;
+                console.log(">>> call bridge ---------------------regualr " + usermanagementobj.playerlist[regularuserindex].playername);
+                if (process.env.ENVVAL === "prod") {
+                    apicall.callbridge(usermanagementobj.playerlist[regularuserindex].playername);
+                }
+
+                regularuserindex = regularuserindex + 1;
+            }
         } else {
             //we dont call game , only call game when people in the high demand
             // if (timestampnow - usermanagementobj.playerlist[regularuserindex].highrequesttimestamp > 60 * 60 * 1000) {
