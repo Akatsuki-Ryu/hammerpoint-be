@@ -203,7 +203,7 @@ function highdemandlistmgr(bridgedata, playername) {
         }
 //write to db rta[0]
         console.log("VVV write to playerlist db");
-        console.log(rta[0].highrequesttimestamp);
+        // console.log(rta[0].highrequesttimestamp);
         writetoplayerlistdb(rta[0]);
 
     }
