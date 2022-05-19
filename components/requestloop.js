@@ -58,7 +58,7 @@ const requestloop = setInterval(async function () {
 //         console.log("test request for " + usermanagementobj.playerlist[userindex].playername);
         if (looptimeoutcontrol % 2 || 1) {
 
-            if (usermanagementobj.playerlist[regularuserindex].archived !== 1) {
+            if (usermanagementobj.playerlist[regularuserindex].archived !== 1 ||usermanagementobj.playerlist[regularuserindex].archived !== "1" ) {
 
                 console.log(">>> call bridge ---------------------regualr " + usermanagementobj.playerlist[regularuserindex].playername);
                 if (process.env.ENVVAL === "prod") {
