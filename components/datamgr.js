@@ -1,6 +1,7 @@
 require('dotenv').config({path: ".env." + process.env.NODE_ENV}); //load the env file accordingly
 const fs = require("fs");
 const {Pool} = require('pg');
+const {getprofilename} = require("./usermanagement");
 const datapool = new Pool({
     connectionString: process.env.DATABASE_URL, ssl: {
         rejectUnauthorized: false
@@ -31,7 +32,7 @@ module.exports = {
             return 1;
 
         }
-    }, writetobridgedb: async function (data, playername, playeruid) {
+    }, writetobridgedb: async function (data, playername, playeruid, profilename) {
 
         //purefy the dataset to remove unusual characters
         data = JSON.stringify(data);
@@ -43,8 +44,8 @@ module.exports = {
             const client = await datapool.connect();
             try {
                 const result = await client.query(`
-                    INSERT INTO public.bridgedata (uid, username, objdata)
-                    VALUES ('` + playeruid + `'::text, '` + playername + `'::text, '` + data + `'::jsonb)
+                    INSERT INTO public.bridgedata (uid, username, objdata, profilename)
+                    VALUES ('` + playeruid + `'::text, '` + playername + `'::text, '` + data + `'::jsonb,'` + profilename + `'::text)
                 returning uid;
 
             `);
@@ -55,7 +56,8 @@ module.exports = {
                     const result = await client.query(`
                         UPDATE public.bridgedata
                         SET username = '` + playername + `'::text, 
-                    objdata = '` + data + `'::jsonb
+                    objdata = '` + data + `'::jsonb,
+                    profilename = '` + profilename + `'
                     WHERE
                         uid = '` + playeruid + `'::text;
 
@@ -250,8 +252,8 @@ ORDER BY "timestamp" DESC
             try {
                 const result = await client.query(`
                     INSERT INTO public.playerlist (uid, playername, profilename, profilephoto, ingame, online,
-                                                   highrequesttimestamp,highrequestlist,needcallgame)
-                    VALUES ('` + playerlistobj.uid + `'::text, '` + playerlistobj.playername + `'::text, '` + playerlistobj.profilename + `'::text, '` + playerlistobj.profilephoto + `'::text, '` + playerlistobj.ingame + `'::bigint, '` + playerlistobj.online + `'::bigint, '` + playerlistobj.highrequesttimestamp + `'::text,'`+playerlistobj.highrequestlist+`::bigint,'`+playerlistobj.needcallgame+`'::bigint)
+                                                   highrequesttimestamp, highrequestlist, needcallgame)
+                    VALUES ('` + playerlistobj.uid + `'::text, '` + playerlistobj.playername + `'::text, '` + playerlistobj.profilename + `'::text, '` + playerlistobj.profilephoto + `'::text, '` + playerlistobj.ingame + `'::bigint, '` + playerlistobj.online + `'::bigint, '` + playerlistobj.highrequesttimestamp + `'::text,'` + playerlistobj.highrequestlist + `::bigint,'` + playerlistobj.needcallgame + `'::bigint)
  returning uid;
 
             `);
@@ -261,7 +263,7 @@ ORDER BY "timestamp" DESC
                 try {
                     const result = await client.query(`
                         UPDATE public.playerlist
-                        SET uid = '` + playerlistobj.uid + `'::text, playername = '` + playerlistobj.playername + `'::text, profilename = '` + playerlistobj.profilename + `'::text, profilephoto = '` + playerlistobj.profilephoto + `'::text, ingame = '` + playerlistobj.ingame + `'::bigint, online = '` + playerlistobj.online + `'::bigint, highrequesttimestamp = '` + playerlistobj.highrequesttimestamp + `'::text,highrequestlist='`+playerlistobj.highrequestlist+`'::bigint,needcallgame='`+playerlistobj.needcallgame+`'::bigint
+                        SET uid = '` + playerlistobj.uid + `'::text, playername = '` + playerlistobj.playername + `'::text, profilename = '` + playerlistobj.profilename + `'::text, profilephoto = '` + playerlistobj.profilephoto + `'::text, ingame = '` + playerlistobj.ingame + `'::bigint, online = '` + playerlistobj.online + `'::bigint, highrequesttimestamp = '` + playerlistobj.highrequesttimestamp + `'::text,highrequestlist='` + playerlistobj.highrequestlist + `'::bigint,needcallgame='` + playerlistobj.needcallgame + `'::bigint
                         WHERE
                             uid = '` + playerlistobj.uid + `';
 
@@ -296,7 +298,8 @@ ORDER BY "timestamp" DESC
             const client = await datapool.connect();
             try {
                 const result = await client.query(`
-                    SELECT * FROM public.playerlist
+                    SELECT *
+                    FROM public.playerlist
                     ORDER BY profilename ASC
 
                 `);
