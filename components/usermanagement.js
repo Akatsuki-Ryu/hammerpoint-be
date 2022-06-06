@@ -119,6 +119,11 @@ function getplayeruid(playername) {
 
 }
 
+function getprofilename(playername) {
+    let rta = playerlist.filter(it => it.playername === playername);
+    return rta[0].profilename;
+}
+
 //todo we can get the uid from requesting
 
 
@@ -225,5 +230,6 @@ module.exports = {
     highdemandlistmgr,
     gethighdemandlist,
     getfreehighdemandcredit,
-    setplayerlist
+    setplayerlist,
+    getprofilename
 };
