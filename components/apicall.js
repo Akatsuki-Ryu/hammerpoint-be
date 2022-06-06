@@ -13,7 +13,7 @@ let playername = "";
 
 const request = require('request');
 const {readfromfile} = require("./datamgr");
-const {getplayeruid, highdemandlistmgr} = require("./usermanagement");
+const {getplayeruid, highdemandlistmgr, getprofilename} = require("./usermanagement");
 const {updateserverinfotimestamp, localserverpath, localmappath} = require("./serverinfomgr");
 
 
@@ -32,9 +32,15 @@ module.exports = {
             if (error) throw new Error(error);
             // console.log(response.body);
             bridgedata = JSON.parse(response.body);
+
             // console.log("call to write to file" + playername);
             datamanagerobj.writetofile(localbridgepath, bridgedata, playername);
-            datamanagerobj.writetobridgedb( bridgedata, playername,playeruid);
+            // datamanagerobj.writetobridgedb( bridgedata, playername,playeruid);
+
+            //write as profilename
+            let profilename = getprofilename(playername);
+            datamanagerobj.writetofile(localbridgepath, bridgedata, profilename);
+            datamanagerobj.writetobridgedb(bridgedata, playername, playeruid, profilename);
 
             highdemandlistmgr(bridgedata, playername);
 
@@ -61,10 +67,14 @@ module.exports = {
             if (error) throw new Error(error);
             // console.log(response.body);
             gamedata = JSON.parse(response.body);
-            datamanagerobj.writetofile(localgamepath, gamedata, playername);
-            datamanagerobj.writetogamedb(gamedata, playername);
-        });
 
+            //write as profile name
+            let profilename = getprofilename(playername);
+            datamanagerobj.writetofile(localgamepath, gamedata, profilename);
+            datamanagerobj.writetogamedb(gamedata, profilename);
+
+
+        });
 
 
         return "manually remote call /game ";
@@ -88,7 +98,7 @@ module.exports = {
         });
         return "call remote server status  ";
 
-    },callmaprotation: function () {
+    }, callmaprotation: function () {
         // func2 impl
         // console.log("call map rotation=========================");
         // let playeruid = getplayeruid(playername);
@@ -138,7 +148,6 @@ module.exports = {
             return databases;
 
         }
-
 
 
     }, setplayername: function (playernameval) {
