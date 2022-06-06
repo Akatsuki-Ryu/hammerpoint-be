@@ -73,14 +73,14 @@ module.exports = {
             // const results = {'results': (result) ? result.rows : null};
 
             // console.log(results.results);
-            console.log("VVV bridge write to db done for " + playername);
+            console.log("VVV bridge write to db done for " + profilename + " as " + playername);
             client.release();
 
         } catch (err) {
             console.error(err);
         }
 
-    }, writetogamedb: async function (data, playername) {
+    }, writetogamedb: async function (data, playername, profilename) {
 
         //purefy the dataset to remove unusual characters
         let datapurified = JSON.stringify(data);
@@ -97,7 +97,7 @@ module.exports = {
                     // console.log("i " + i + "  " + data[i].gameStartTimestamp + " ");
 
                     const result = await client.query(`
-                        INSERT INTO public."gamedata-` + playername + `" (
+                        INSERT INTO public."gamedata-` + profilename + `" (
 "timestamp", timeindex, playername, gamedata) VALUES (
 '` + data[i].gameStartTimestamp + `'::text, '1'::text, '` + playername + `'::text, '` + JSON.stringify(datapurified[i]) + `'::jsonb)
  ON CONFLICT ("timestamp") DO UPDATE 
