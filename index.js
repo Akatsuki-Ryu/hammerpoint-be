@@ -14,7 +14,7 @@ const {
     getplayernames,
     getplayeruid,
     gethighdemandlist,
-    getfreehighdemandcredit, getplayerlist
+    getfreehighdemandcredit, getplayerlist, getactiveplayername
 } = require("./components/usermanagement");
 const wakeUpDyno = require("./components/keepawake");
 const {getserverstatus, getmaprotation} = require("./components/serverinfomgr");
@@ -56,18 +56,24 @@ express()
     //     let jsoncontent = JSON.stringify(data); //use this if use res.send
     //     res.json(data);
     // })
-    .get('/getbridgedata/:playernamereq', async (req, res) => {
+    .get('/getbridgedata/:profilenamereq', async (req, res) => {
         // apicall.setplayername(req.params.playernamereq);
         let data = undefined;
         // data = await apicall.getbridgedata(req.params.playernamereq);
-        data = await readfrombridgedb(data,req.params.playernamereq);
-        res.send(data);
+        let playername = getactiveplayername(req.params.profilenamereq);
+        if (playername === undefined) {
+            res.send("playername is not found");
+        } else {
+            data = await readfrombridgedb(data, playername);
+            res.send(data);
+        }
+
     })
     .get('/getgamedata/:playernamereq', async (req, res) => {
 
         let data = undefined;
         // data = apicall.getgamedata(req.params.playernamereq);
-        data = await readfromgamedb(data,req.params.playernamereq);
+        data = await readfromgamedb(data, req.params.playernamereq);
         res.send(data);
     })
     .get('/getgamedataoneday', async (req, res) => {
@@ -147,6 +153,6 @@ express()
     .listen(PORT, () => {
         console.log(`Listening on ${PORT}` + "  running on " + process.env.ENVVAL);
         wakeUpDyno(process.env.DYNO_URL);
-        wakeUpDyno(process.env.DYNO_URL_AVC,1);
+        wakeUpDyno(process.env.DYNO_URL_AVC, 1);
 
     });
