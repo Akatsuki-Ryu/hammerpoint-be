@@ -7,3 +7,8 @@ npm-debug.log
 *.dev
 .DS_Store
 
+public/gamedata*
+public/bridgedata*
+public/map*
+public/serverdata*
+public/playerlist*
