@@ -71,7 +71,7 @@ module.exports = {
             //write as profile name
             let profilename = getprofilename(playername);
             datamanagerobj.writetofile(localgamepath, gamedata, profilename);
-            datamanagerobj.writetogamedb(gamedata, playername,profilename);
+            datamanagerobj.writetogamedb(gamedata, playername, profilename);
 
 
         });
