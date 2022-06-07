@@ -11,10 +11,7 @@ require('dotenv').config({path: ".env." + process.env.NODE_ENV}); //load the env
 //database related
 const {Pool} = require('pg');
 const {
-    getplayernames,
-    getplayeruid,
-    gethighdemandlist,
-    getfreehighdemandcredit, getplayerlist, getactiveplayername
+    getplayernames, getplayeruid, gethighdemandlist, getfreehighdemandcredit, getplayerlist, getactiveplayername
 } = require("./components/usermanagement");
 const wakeUpDyno = require("./components/keepawake");
 const {getserverstatus, getmaprotation} = require("./components/serverinfomgr");
@@ -56,7 +53,7 @@ express()
     //     let jsoncontent = JSON.stringify(data); //use this if use res.send
     //     res.json(data);
     // })
-    .get('/getbridgedata/:profilenamereq', async (req, res) => {
+    .get('/getbridgedataprofile/:profilenamereq', async (req, res) => {
         // apicall.setplayername(req.params.playernamereq);
         let data = undefined;
         // data = await apicall.getbridgedata(req.params.playernamereq);
@@ -67,6 +64,15 @@ express()
             data = await readfrombridgedb(data, playername);
             res.send(data);
         }
+
+    })
+    .get('/getbridgedata/:playernamereq', async (req, res) => {
+        // apicall.setplayername(req.params.playernamereq);
+        let data = undefined;
+
+        data = await readfrombridgedb(data, req.params.playernamereq);
+        res.send(data);
+
 
     })
     .get('/getgamedata/:playernamereq', async (req, res) => {
