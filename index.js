@@ -53,6 +53,15 @@ express()
     //     let jsoncontent = JSON.stringify(data); //use this if use res.send
     //     res.json(data);
     // })
+    .get('/getbridgedata/:playernamereq', async (req, res) => {
+        // apicall.setplayername(req.params.playernamereq);
+        let data = undefined;
+
+        data = await readfrombridgedb(data, req.params.playernamereq);
+        res.send(data);
+
+
+    })
     .get('/getbridgedataprofile/:profilenamereq', async (req, res) => {
         // apicall.setplayername(req.params.playernamereq);
         let data = undefined;
@@ -66,21 +75,23 @@ express()
         }
 
     })
-    .get('/getbridgedata/:playernamereq', async (req, res) => {
-        // apicall.setplayername(req.params.playernamereq);
-        let data = undefined;
 
-        data = await readfrombridgedb(data, req.params.playernamereq);
-        res.send(data);
-
-
-    })
+    // game data is not written by playername , this func is deprecated
     .get('/getgamedata/:playernamereq', async (req, res) => {
 
         let data = undefined;
         // data = apicall.getgamedata(req.params.playernamereq);
         data = await readfromgamedb(data, req.params.playernamereq);
         res.send(data);
+    })
+    // get game data , use this instead
+    .get('/getgamedataprofile/:profilenamereq', async (req, res) => {
+
+        let data = undefined;
+        data = await readfromgamedb(data, req.params.profilenamereq);
+        res.send(data);
+
+
     })
     .get('/getgamedataoneday', async (req, res) => {
 
