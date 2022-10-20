@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="deoi1n0o9q6ass@ec2-52-203-118-49.compute-1.amazonaws.com" uuid="136e566d-ef48-435b-83b2-4d708b7a957e">
+    <data-source source="LOCAL" name="heroku-db" uuid="136e566d-ef48-435b-83b2-4d708b7a957e">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://ec2-52-203-118-49.compute-1.amazonaws.com:5432/deoi1n0o9q6ass</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="hammerpoint-db.c5xd5qdf533m.eu-central-1.rds.amazonaws.com" uuid="3406f92d-73e2-4cae-aa50-2eb76a58f2d7">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://hammerpoint-db.c5xd5qdf533m.eu-central-1.rds.amazonaws.com:5432/postgres</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
