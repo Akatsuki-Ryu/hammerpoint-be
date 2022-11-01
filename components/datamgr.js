@@ -253,7 +253,7 @@ ORDER BY "timestamp" DESC
                 const result = await client.query(`
                     INSERT INTO public.playerlist (uid, playername, profilename, profilephoto, ingame, online,
                                                    highrequesttimestamp, highrequestlist, needcallgame)
-                    VALUES ('` + playerlistobj.uid + `'::text, '` + playerlistobj.playername + `'::text, '` + playerlistobj.profilename + `'::text, '` + playerlistobj.profilephoto + `'::text, '` + playerlistobj.ingame + `'::bigint, '` + playerlistobj.online + `'::bigint, '` + playerlistobj.highrequesttimestamp + `'::text,'` + playerlistobj.highrequestlist + `::bigint,'` + playerlistobj.needcallgame + `'::bigint)
+                    VALUES ('` + playerlistobj.uid + `'::text, '` + playerlistobj.playername + `'::text, '` + playerlistobj.profilename + `'::text, '` + playerlistobj.profilephoto + `'::text, '` + playerlistobj.ingame + `'::bigint, '` + playerlistobj.online + `'::bigint, '` + playerlistobj.highrequesttimestamp + `'::text,'` + playerlistobj.highrequestlist + `'::bigint,'` + playerlistobj.needcallgame + `'::bigint)
  returning uid;
 
             `);
