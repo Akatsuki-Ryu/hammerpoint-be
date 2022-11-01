@@ -8,13 +8,6 @@
       <jdbc-url>jdbc:postgresql://ec2-52-203-118-49.compute-1.amazonaws.com:5432/deoi1n0o9q6ass</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="hammerpoint-db.c5xd5qdf533m.eu-central-1.rds.amazonaws.com" uuid="3406f92d-73e2-4cae-aa50-2eb76a58f2d7">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://hammerpoint-db.c5xd5qdf533m.eu-central-1.rds.amazonaws.com:5432/postgres</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
     <data-source source="LOCAL" name="postgres@ec2-3-70-131-40.eu-central-1.compute.amazonaws.com" uuid="34e3ed99-ebcd-4ce5-9402-2ca32187573d">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
